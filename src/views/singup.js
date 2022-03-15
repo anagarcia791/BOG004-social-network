@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-cycle
 // import { changeView } from '../routers/router.js';
 import { singupBtnEvent, singupGoogleEvent } from '../controllers/singup.controller.js';
+import { showNotification } from '../controllers/alerts.controllers.js';
 
 // se crea template de registro
 export default () => {
@@ -30,8 +31,12 @@ export default () => {
   singupBtn.addEventListener('click', () => {
     const singupEmail = divElementSingup.querySelector('#email').value;
     const singupPassword = divElementSingup.querySelector('#pass').value;
-    // console.log(singupEmail, singupPassword);
-    singupBtnEvent(singupEmail, singupPassword);
+    const sinupSecondPassword = divElementSingup.querySelector('#conf-pass').value;
+    if (singupPassword === sinupSecondPassword) {
+      singupBtnEvent(singupEmail, singupPassword);
+    } else {
+      showNotification('verificar contraseñas');
+    }
   });
   // se agrega evento click a imagen para autenticar usuario con google
   const authGoogle = divElementSingup.querySelector('#auth-google');
