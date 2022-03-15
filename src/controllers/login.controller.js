@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-unresolved
 import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js';
+import { showNotification } from './alerts.controllers.js';
 
 export const loginBtnEvent = (loginEmail, loginPassword) => {
   const auth = getAuth();
@@ -17,6 +18,6 @@ export const loginBtnEvent = (loginEmail, loginPassword) => {
       const errorCode = error.code;
       console.log(errorCode);
       const errorMessage = error.message;
-      console.log(errorMessage);
+      showNotification(errorMessage);
     });
 };
