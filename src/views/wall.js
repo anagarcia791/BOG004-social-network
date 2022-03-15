@@ -1,10 +1,10 @@
-// se crea template de home
+// se crea template de wall
 export default () => {
-  const home = `
+  const wall = `
   <p>EN CONSTRUCCION JE JE JE </p>`;
 
-  const divElementHome = document.createElement('div');
-  divElementHome.innerHTML = home;
+  const divElementWall = document.createElement('div');
+  divElementWall.innerHTML = wall;
 
-  return divElementHome;
+  return divElementWall;
 };
