@@ -6,6 +6,7 @@ import {
   GoogleAuthProvider,
 // eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js';
+import { showNotification } from './alerts.controllers.js';
 
 // agregamos evento click a boton continuar para crear usuario con correo y contraseña
 // con el evento click y la creacion de usuario nos lleva al home
@@ -25,8 +26,8 @@ export const singupBtnEvent = (singupEmail, singupPassword) => {
       const errorCode = error.code;
       console.log(errorCode);
       const errorMessage = error.message;
-      console.log(errorMessage);
-    // ..
+      showNotification(errorMessage);
+      // ..
     });
 };
 
