@@ -1,0 +1,11 @@
+/* notification */
+.notification{
+    display: none;
+    width: 200px;
+    padding: 20px;
+    border-radius: 0 0 5px 5px;
+    background: #ec2d2d;
+    text-align: center;
+    color: #fff;
+    transition: all 0.4s;
+}
