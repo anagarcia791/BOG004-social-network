@@ -9,7 +9,7 @@ import {
 
 // agregamos evento click a boton continuar para crear usuario con correo y contraseña
 // con el evento click y la creacion de usuario nos lleva al home
-export function singupBtnEvent(singupEmail, singupPassword) {
+export const singupBtnEvent = (singupEmail, singupPassword) => {
   const auth = getAuth();
   const email = singupEmail;
   const password = singupPassword;
@@ -28,11 +28,11 @@ export function singupBtnEvent(singupEmail, singupPassword) {
       console.log(errorMessage);
     // ..
     });
-}
+};
 
 // se declara como nuestro proveedor a google
 const provider = new GoogleAuthProvider();
-export function singupGoogleEvent() {
+export const singupGoogleEvent = () => {
   const auth = getAuth();
   signInWithPopup(auth, provider)
     .then((result) => {
@@ -58,4 +58,4 @@ export function singupGoogleEvent() {
       console.log(credential);
     // ...
     });
-}
+};
