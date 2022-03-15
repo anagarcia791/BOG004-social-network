@@ -27,9 +27,10 @@ export default () => {
   divElementSingup.innerHTML = viewSingup;
   // se agrega evento click a boton continuar para crear usuario con correo y contraseña
   const singupBtn = divElementSingup.querySelector('#singup-btn');
-  const singupEmail = divElementSingup.querySelector('#email').value;
-  const singupPassword = divElementSingup.querySelector('#pass').value;
   singupBtn.addEventListener('click', () => {
+    const singupEmail = divElementSingup.querySelector('#email').value;
+    const singupPassword = divElementSingup.querySelector('#pass').value;
+    // console.log(singupEmail, singupPassword);
     singupBtnEvent(singupEmail, singupPassword);
   });
   // se agrega evento click a imagen para autenticar usuario con google
