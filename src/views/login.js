@@ -6,22 +6,26 @@ import { loginBtnEvent } from '../controllers/login.controller.js';
 // se crea template de login
 export default () => {
   const viewLogin = `
-    <form class="singup-container">
-        <section class="singup-logobemusic">
-            <h1 class="singup-title">BeMusic</h1>
-            <img src="./assets/images/logobemusic.png" width="50px">
+    <form class="login">
+        <section class="login-logobemusic">
+            <h1 class="login-title">BeMusic</h1>
+            <img src="./assets/images/logobemusic.png">
         </section>
-        <section class="singup-inputs">
-            <input id="email" type="email" value="" placeholder="Correo"/>
-            <input id="pass" type="password" value="" placeholder="Contraseña"/>
-        </section>
-        <button type="button" id="login-btn" class="singup-btn">Iniciar sesión</button>
-        <p>---- O ----</p>
-        <section class="singup-google">
-            <p>Iniciar sesión con</p>
-            <img id="login-google" src="./assets/images/logogoogle.png" width="50px"></img>
-            <p>¿No tienes cuenta?</p>
-            <button type="button" id="singup-btn-load" class="singup-btn-2">Regístrate</button>
+        <section class="login-container">
+            <section class="login-inputs">
+                <input id="email" type="email" value="" placeholder="Correo"/>
+                <input id="pass" type="password" value="" placeholder="Contraseña"/>
+            </section>
+            <button type="button" id="login-btn" class="login-btn">Iniciar sesión</button>
+            <p>---- O ----</p>
+            <section class="login-google">
+                <p>Iniciar sesión con</p>
+                <img id="login-google" src="./assets/images/logogoogle.png"></img>
+            </section>
+            <section class = "login-load-singup">
+                <p>¿No tienes cuenta?</p>
+                <button type="button" id="singup-btn-load" class="login-btn-2">Regístrate</button>
+            </section>
         </section>
     </form>`;
   const divElementLogin = document.createElement('div');
