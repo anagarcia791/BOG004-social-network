@@ -15,7 +15,7 @@ const changeView = (route) => {
     case '#/':
     case 'localhost:3000':
     { return sectionHTML.appendChild(components.login()); }
-    case '#/singup':
+    case '#/signup':
     case '#/wall':
     { return sectionHTML.appendChild(components[hash]()); }
     default:
