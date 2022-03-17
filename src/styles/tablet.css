@@ -1,5 +1,7 @@
-
-.login-container {
-    height: 60vh;
-
+.log-sig{
+    max-width: 300px;
+    max-height: 600px;
+}
+.log-sig-container{
+    gap: 35px;
 }
