@@ -1,7 +1,8 @@
-// eslint-disable-next-line import/no-unresolved
-import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js';
+// se importan funciones de firebase y de notificacion
+import { getAuth, signInWithEmailAndPassword } from '../firebase-init.js';
 import { showNotification } from './alerts.controllers.js';
 
+// funcion para iniciar sesion con correo y contraseña
 export const loginBtnEvent = (loginEmail, loginPassword) => {
   const auth = getAuth();
   const email = loginEmail;
