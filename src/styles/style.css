@@ -3,14 +3,10 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 html {
     height: 100%;
 }
-
 :root{
-    /* --title: font-family: 'Cabin', sans-serif;
-    --bodytext: font-family: 'Ubuntu', sans-serif; */
     --btnAll:#3F37C9;
     --btnedit:#4361EE;
     --btnfuccia1:#F72585;
@@ -25,67 +21,75 @@ html {
     --btnblue4 :#4CC9F0;
     --textblack:#0A0909;
     --textwhite:#FCF9F9;
+    --textwhite2:#fcf9f9be;
 }
-
 body{
+    width: 100vw;
     height: 100vh;
-    background-color: var(--textwhite);
-    font-family:'Ubuntu', sans-serif ;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: var(--textwhite);
+    font-family:'Ubuntu', sans-serif ;
 }
-
-.login{
+/* INICIO estilos para secciones registro y login */
+.bg-cont{
+    width: 100vw;
+    height: 100vh;
+    background-image: url(../assets/images/bg.png);
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    overflow-x: hidden;
+}
+.log-sig{
     width: 90%;
+    min-width: 300px;
     height: 90vh;
+    min-height: 600px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.login p{
+.log-sig p{
     font-size: 1.05rem;
 }
-
-.login-container {
-    margin: 60px 0 60px 0;
+.log-sig-container{
     width: 90%;
-    height: 70vh;
-    padding: 20px ;
-    border-radius: 10px;
+    min-width: 300px;
+    height: 80vh;
+    min-height: 450px;
+    padding: 20px;
+    margin: 40px 0 40px 0;
+    gap: 38px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 60px;
+    background-color: var(--textwhite2);
+    border-radius: 10px;
     -webkit-box-shadow: 1px 7px 21px -6px rgba(0,0,0,0.75);
     -moz-box-shadow: 1px 7px 21px -6px rgba(0,0,0,0.75);
     box-shadow: 1px 7px 21px -6px rgba(0,0,0,0.75);
-    
-
 }
-
-.login-logobemusic{
-    width: 60%;
+.log-sig-logobemusic{
+    width: 65%;
+    margin-top: 20px;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    margin-top: 20px;
-    /* align-content: center; */
 }
-.login-logobemusic img{
+.log-sig-logobemusic img{
     width: 65px;
 }
-
-.login-title {
+.log-sig-title{
     font-family:'Cabin', sans-serif;
     font-size: 2rem;
     font-weight: 300;
-    /* margin-right: 10px; */
 }
-
-.login-inputs input{
+.log-sig-inputs input{
     width: 100%;
     height: 35px;
     padding: 10px;
@@ -94,47 +98,43 @@ body{
     border-style: none;
     border: 1px solid var(--btnblue4);
 }
-
 ::placeholder {
     font-size: 1rem;
     
 }
-
-.login-btn {
+.log-sig-btn {
     padding: 10px 20px 10px 20px;
-    border: none;
-    background-color: var(--btnblue1);
-    border-radius: 10px;
     color: var(--textwhite);
     font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--btnblue1);
 }
-.login-google{
-    width: 85%;
-    display: flex;
-    justify-content: space-evenly;
-}
-.login-google img{
-    width: 70px;
-}
-.login-load-singup{
+.log-sig-google{
     width: 90%;
     display: flex;
     justify-content: space-evenly;
-    align-items: center;
+    font-weight: bold;
 }
-.login-btn-2{
+.log-sig-google img{
+    width: 70px;
+}
+.log-sig-load{
+    width: 98%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-weight: bold;
+}
+.log-sig-btn-2{
     padding: 7px 10px 7px 10px;
+    color: var(--textwhite);
+    font-size: 0.8rem;
     border: none;
     background-color: var(--btnblue1);
     border-radius: 10px;
-    color: var(--textwhite);
-    font-size: 0.8rem;
 }
-
-
-
-
-
+/* FIN estilos para secciones registro y login */
 /* notification */
 .notification{
     display: none;
