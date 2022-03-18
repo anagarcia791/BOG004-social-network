@@ -33,3 +33,5 @@ export {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
 };
+
+export const provider = new GoogleAuthProvider();

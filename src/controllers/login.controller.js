@@ -1,6 +1,7 @@
 // se importan funciones de firebase y de notificacion
 import { getAuth, signInWithEmailAndPassword } from '../firebase-init.js';
 import { showNotification } from './alerts.controllers.js';
+// import { changeView } from '../router.js';
 
 // funcion para iniciar sesion con correo y contraseña
 export const loginBtnEvent = (loginEmail, loginPassword) => {
@@ -12,6 +13,7 @@ export const loginBtnEvent = (loginEmail, loginPassword) => {
     // Signed in
       const user = userCredential.user;
       console.log(user);
+      // changeView('#/wall');
       window.location.hash = '#/wall'; // se cambia ventana cuando el usuario se loguea con su  cuenta
     // ...
     })

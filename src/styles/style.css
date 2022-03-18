@@ -46,8 +46,10 @@ body{
 .log-sig{
     width: 90%;
     min-width: 300px;
+    max-width: 300px;
     height: 90vh;
     min-height: 600px;
+    max-height: 600px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -68,7 +70,8 @@ body{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: var(--textwhite2);
+    /* background-color: var(--textwhite2); */
+    background-color: var(--textwhite);
     border-radius: 10px;
     -webkit-box-shadow: 1px 7px 21px -6px rgba(0,0,0,0.75);
     -moz-box-shadow: 1px 7px 21px -6px rgba(0,0,0,0.75);
@@ -110,6 +113,29 @@ body{
     border-radius: 10px;
     background-color: var(--btnblue1);
 }
+.log-sig-line{
+    width: 95%;
+}
+p.log-sig-line{
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+p.log-sig-line:before{
+    border-top: 2px solid var(--textblack);
+    content: "";
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+p.log-sig-line span{
+    background:  var(--textwhite);
+    padding: 0 15px;
+}
 .log-sig-google{
     width: 90%;
     display: flex;
@@ -135,9 +161,43 @@ body{
     border-radius: 10px;
 }
 /* FIN estilos para secciones registro y login */
+/* INICIO estilos para seccion muro */
+.wall{
+    width: 100vw;
+    /* min-width: 300px; */
+    height: 100vh;
+    /* min-height: 600px; */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+.wall-nav{
+    width: 100vw;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 2px 5px 5px -3px rgba(168,165,168,0.75);
+    -webkit-box-shadow: 2px 5px 5px -3px rgba(168,165,168,0.75);
+    -moz-box-shadow: 2px 5px 5px -3px rgba(168,165,168,0.75);
+}
+.wall-nav img{
+    width: 40px;
+}
+.wall-nav-pic{
+    width: 25vw;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.5rem;
+}
+/* FIN estilos para seccion muro */
 /* notification */
 .notification{
     display: none;
+    position: fixed;
     width: 200px;
     padding: 20px;
     border-radius: 0 0 5px 5px;

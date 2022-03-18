@@ -1,3 +1,4 @@
+/* INICIO estilos para secciones registro y login */
 .log-sig{
     max-width: 300px;
     max-height: 600px;
@@ -5,3 +6,15 @@
 .log-sig-container{
     gap: 35px;
 }
+/* FIN estilos para secciones registro y login */
+/* INICIO estilos para seccion muro */
+/* .wall{
+    width: 95vw;
+} */
+.wall-nav{
+    padding: 5px 20px 5px 20px;
+}
+.wall-nav-pic{
+    width: 10vw;
+}
+/* FIN estilos para seccion muro */

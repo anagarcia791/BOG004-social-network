@@ -1,8 +1,8 @@
 // se importan vistas
-import Signup from './signup.js';
-import Login from './login.js';
-import Wall from './wall.js';
-import Error404 from './404.js';
+import Signup from './views/signup.js';
+import Login from './views/login.js';
+import Wall from './views/wall.js';
+import Error404 from './views/404.js';
 // se crea componente de vistas
 const components = {
   signup: Signup,

@@ -1,7 +1,7 @@
-// import { changeView } from '../routers/router.js';
 // se importa funciones de firebase y de notificacion
 import { signupGoogleEvent } from '../controllers/signup.controller.js';
 import { loginBtnEvent } from '../controllers/login.controller.js';
+// import { changeView } from '../router.js';
 
 // se crea template de login
 export default () => {
@@ -10,7 +10,7 @@ export default () => {
       <form class="log-sig">
           <section class="log-sig-logobemusic">
               <h1 class="log-sig-title">BeMusic</h1>
-              <img src="./assets/images/logobemusic.png">
+              <img src="./assets/images/logobemusic.png" alt="logoBeMusic"></img>
           </section>
           <section class="log-sig-container">
               <section class="log-sig-inputs">
@@ -18,10 +18,10 @@ export default () => {
                   <input id="pass" type="password" value="" placeholder="Contraseña"/>
               </section>
               <button type="button" id="login-btn" class="log-sig-btn">Iniciar sesión</button>
-              <p>---- O ----</p>
+              <p class="log-sig-line"><span>O</span></p>
               <section class="log-sig-google">
                   <p>Iniciar sesión con</p>
-                  <img id="login-google" src="./assets/images/logogoogle.png"></img>
+                  <img id="login-google" src="./assets/images/logogoogle.png" alt="logoGoogle"></img>
               </section>
               <section class = "log-sig-load">
                   <p>¿No tienes cuenta?</p>
@@ -32,6 +32,7 @@ export default () => {
   </section>`;
   const divElementLogin = document.createElement('div');
   divElementLogin.innerHTML = viewLogin;
+
   // se agrega evento click a boton continuar para inisiar sesion
   const loginBtn = divElementLogin.querySelector('#login-btn');
   loginBtn.addEventListener('click', () => {
@@ -39,16 +40,20 @@ export default () => {
     const loginPassword = divElementLogin.querySelector('#pass').value;
     loginBtnEvent(loginEmail, loginPassword);
   });
+
   // se agrega evento click a imagen para autenticar usuario con google
   const authGoogle = divElementLogin.querySelector('#login-google');
   authGoogle.addEventListener('click', () => {
     signupGoogleEvent();
   });
+
   // se agrega evento click a boton de signup
   const btnRegistrar = divElementLogin.querySelector('#signup-btn-load');
   btnRegistrar.addEventListener('click', () => {
-    // event.preventDefault(); // changeView('#/signup');
+    // event.preventDefault();
+    // changeView('#/signup');
     window.location.hash = '#/signup'; // se cambia ventana a signup para registrarse
   });
+
   return divElementLogin;
 };

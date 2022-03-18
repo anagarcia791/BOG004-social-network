@@ -1,5 +1,5 @@
 // importamos los cambios de vistas y funciones que controlan eventos
-import { changeView } from './routers/router.js';
+import { changeView } from './router.js';
 
 // funcion init para vistas y eventos
 const init = () => {
