@@ -4,8 +4,8 @@ import { components } from './index.js';
 // funcion de condicion de cambio de rutas
 const changeView = (route) => {
   console.log(route, 'route desde router.js');
-  // const hash = route.split('/')[1];
-  // console.log(hash, 'hash desde router.js');
+  const hash = route.split('/')[1];
+  console.log(hash, 'hash desde router.js');
   const sectionHTML = document.querySelector('#routers-container');
   sectionHTML.innerHTML = '';
   switch (route) {
@@ -15,9 +15,8 @@ const changeView = (route) => {
     case '#/':
     { return sectionHTML.appendChild(components.login()); }
     case '#/signup':
-    { return sectionHTML.appendChild(components.signup()); }
     case '#/wall':
-    { return sectionHTML.appendChild(components.wall()); }
+    { return sectionHTML.appendChild(components[hash]()); }
     default:
       return sectionHTML.appendChild(components.error404());
   }
