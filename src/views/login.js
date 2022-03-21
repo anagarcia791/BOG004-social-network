@@ -1,7 +1,7 @@
 // se importa funciones de firebase y de notificacion
 import { signupGoogleEvent } from '../controllers/signup.controller.js';
 import { loginBtnEvent } from '../controllers/login.controller.js';
-// import { changeView } from '../router.js';
+import { showNotification } from '../controllers/alerts.controllers.js';
 
 // se crea template de login
 export default () => {
@@ -38,20 +38,42 @@ export default () => {
   loginBtn.addEventListener('click', () => {
     const loginEmail = divElementLogin.querySelector('#email').value;
     const loginPassword = divElementLogin.querySelector('#pass').value;
-    loginBtnEvent(loginEmail, loginPassword);
+    loginBtnEvent(loginEmail, loginPassword)
+      .then((userCredential) => {
+      // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        window.location.hash = '#/wall'; // se cambia ventana cuando el usuario se loguea con cuenta
+      // ...
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        // console.log(errorMessage);
+        showNotification(errorMessage);
+      });
   });
 
   // se agrega evento click a imagen para autenticar usuario con google
   const authGoogle = divElementLogin.querySelector('#login-google');
   authGoogle.addEventListener('click', () => {
-    signupGoogleEvent();
+    signupGoogleEvent()
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const user = result.user;
+        console.log(user);
+        window.location.hash = '#/wall'; // se cambia ventana cuando autentica cuenta
+      }).catch((error) => {
+        // Handle Errors here.
+        const errorMessage = error.message;
+        // console.log(errorMessage);
+        showNotification(errorMessage);
+        // ...
+      });
   });
 
   // se agrega evento click a boton de signup
   const btnRegistrar = divElementLogin.querySelector('#signup-btn-load');
   btnRegistrar.addEventListener('click', () => {
-    // event.preventDefault();
-    // changeView('#/signup');
     window.location.hash = '#/signup'; // se cambia ventana a signup para registrarse
   });
 
