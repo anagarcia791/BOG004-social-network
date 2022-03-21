@@ -1,13 +1,13 @@
 // Import the functions you need from the SDKs you need
 // eslint-disable-next-line import/no-unresolved
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js';
-
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
+  onAuthStateChanged,
 // eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js';
 
@@ -32,6 +32,8 @@ export {
   signInWithPopup,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
+  onAuthStateChanged,
 };
 
+// se declara como nuestro proveedor a google
 export const provider = new GoogleAuthProvider();
