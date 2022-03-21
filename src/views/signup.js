@@ -1,8 +1,6 @@
 // se importa funciones de firebase y de notificacion
-// import { GoogleAuthProvider } from '../firebase-init.js';
 import { signupBtnEvent, signupGoogleEvent } from '../controllers/signup.controller.js';
 import { showNotification } from '../controllers/alerts.controllers.js';
-// import { changeView } from '../router.js';
 
 // se crea template de registro
 export default () => {
@@ -41,7 +39,18 @@ export default () => {
     const signupPassword = divElementSignup.querySelector('#pass').value;
     const sinupSecondPassword = divElementSignup.querySelector('#conf-pass').value;
     if (signupPassword === sinupSecondPassword) {
-      signupBtnEvent(signupEmail, signupPassword);
+      signupBtnEvent(signupEmail, signupPassword)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+          window.location.hash = '#/wall'; // se cambia ventana cuando crea cuenta
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          showNotification(errorMessage);
+          // ..
+        });
     } else {
       showNotification('verificar contraseñas');
     }
@@ -51,40 +60,23 @@ export default () => {
   const authGoogle = divElementSignup.querySelector('#auth-google');
   authGoogle.addEventListener('click', (event) => {
     event.preventDefault();
-    signupGoogleEvent();
-    // .then((result) => {
-    //   // This gives you a Google Access Token. You can use it to access the Google API.
-    //   const credential = GoogleAuthProvider.credentialFromResult(result);
-    //   console.log(credential);
-    //   console.log(result);
-    //   // const token = credential.accessToken;
-    //   // The signed-in user info.
-    //   // const user = result.user;
-    //   // ...
-    //   // changeView('#/wall');
-    //   // window.location.href = '#/wall'
-    //   window.location.hash = '#/wall'; // se cambia ventana cuando autentica cuenta
-    // }).catch((error) => {
-    //   // Handle Errors here.
-    //   const errorCode = error.code;
-    //   console.log(errorCode);
-    //   const errorMessage = error.message;
-    //   console.log(errorMessage);
-    //   // The email of the user's account used.
-    //   const email = error.email;
-    //   console.log(email);
-    //   // The AuthCredential type that was used.
-    //   const credential = GoogleAuthProvider.credentialFromError(error);
-    //   console.log(credential);
-    // // ...
-    // });
+    signupGoogleEvent()
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const user = result.user;
+        console.log(user);
+        window.location.hash = '#/wall'; // se cambia ventana cuando autentica cuenta
+      }).catch((error) => {
+        // Handle Errors here.
+        const errorMessage = error.message;
+        console.log(errorMessage);
+        // ...
+      });
   });
 
   // se agrega evento click a boton de login
   const loginBtn = divElementSignup.querySelector('#login-btn-load');
   loginBtn.addEventListener('click', () => {
-    // event.preventDefault();
-    // changeView('#/');
     window.location.hash = '#/'; // se cambia ventana a login para iniciar sesion
   });
 
