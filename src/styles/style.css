@@ -186,12 +186,17 @@ p.log-sig-line span{
 .wall-nav img{
     width: 40px;
 }
-.wall-nav-pic{
-    width: 25vw;
+.wall-nav-container{
+    width: 15vw;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    margin-top: 0px;
+}
+.wall-nav-pic img{
+    border-radius: 50%;
+    margin-top: 2px;
 }
 /* FIN estilos para seccion muro */
 /* notification */
