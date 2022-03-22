@@ -8,6 +8,7 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   onAuthStateChanged,
+  signOut,
 // eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js';
 
@@ -33,6 +34,7 @@ export {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   onAuthStateChanged,
+  signOut,
 };
 
 // se declara como nuestro proveedor a google
