@@ -37,8 +37,8 @@ export default () => {
   signupBtn.addEventListener('click', () => {
     const signupEmail = divElementSignup.querySelector('#email').value;
     const signupPassword = divElementSignup.querySelector('#pass').value;
-    const sinupSecondPassword = divElementSignup.querySelector('#conf-pass').value;
-    if (signupPassword === sinupSecondPassword) {
+    const signupSecondPassword = divElementSignup.querySelector('#conf-pass').value;
+    if (signupPassword === signupSecondPassword) {
       signupBtnEvent(signupEmail, signupPassword)
         .then((userCredential) => {
           // Signed in
