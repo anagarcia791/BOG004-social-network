@@ -43,7 +43,7 @@ export default () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
+          console.log('con correo y contraseña desde signup', user);
           window.location.hash = '#/wall'; // se cambia ventana cuando crea cuenta
         })
         .catch((error) => {
@@ -64,7 +64,7 @@ export default () => {
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const user = result.user;
-        console.log(user);
+        console.log('ususario desde Google desde signup', user);
         window.location.hash = '#/wall'; // se cambia ventana cuando autentica cuenta
       }).catch((error) => {
         // Handle Errors here.

@@ -1,3 +1,5 @@
+// se importa funcion del observador de status
+import { stateChangeViewer } from '../controllers/wall.controller.js';
 // se crea template de wall
 export default () => {
   const wall = `
@@ -34,10 +36,9 @@ export default () => {
     // declaracion variable para agregar generos musicales
     const musicCategoriesSec = divElementWall.querySelector('#wall-categ-container');
     let musicValues = '';
-    // ciclo para crear a ref o botones de generos musicales
+    // ciclo para crear botones de generos musicales
     mCategories.forEach((value, index) => {
       musicValues += `<button type="button" id="${value}${index}">${value}</button>`;
-      // musicValues += `<a href="" class="wall-categ-genre" id="${value}${index}">${value}</a>`;
     });
     // inserta estructura filtros
     musicCategoriesSec.innerHTML = musicValues;
@@ -46,9 +47,18 @@ export default () => {
   // se invoca a la funcion createCategoriesStructure para crear opcion de publicacion
   createCategoriesStructure(musicCategories.type);
 
-  // se camptura avatar
-  const userPic = divElementWall.querySelector('#userpic');
-  console.log(userPic);
+  // funcion para cambiar icono por foto
+  const prueba = () => {
+    // const userPic = divElementWall.querySelector('#userpic');
+    const userPic = divElementWall.querySelector('.wall-nav-pic');
+    const userPicUrl = stateChangeViewer();
+    const userHtml = `<img src="${userPicUrl}" alt="logoBeMusic"></img>`;
+    if (userPicUrl != null) {
+      // userPic.innerHTML = `<img src="${userPicUrl}" alt="logoBeMusic"></img>`;
+      userPic.replaceChild(userHtml, userPic.childNodes[0]);
+    }
+  };
+  prueba();
 
   // se agrega evento click a boton de login
   const signoutBtn = divElementWall.querySelector('#signout');
