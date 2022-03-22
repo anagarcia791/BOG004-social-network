@@ -1,5 +1,5 @@
 // se importa funcion del observador de status
-import { stateChangeViewer } from '../controllers/wall.controller.js';
+import { googlePhoto, stateChangeViewer } from '../controllers/wall.controller.js';
 // se crea template de wall
 export default () => {
   const wall = `
@@ -7,10 +7,12 @@ export default () => {
     <header>
         <nav class="wall-nav">
             <img src="./assets/images/logobemusic.png" alt="logoBeMusic"></img>
-            <picture class="wall-nav-pic">
-                <i class="fa-solid fa-user" id="userpic"></i>
+            <section class = "wall-nav-container">
+                <picture class="wall-nav-pic">
+                    <i class="fa-solid fa-user" id="userpic"></i>
+                </picture>
                 <i class="fa-solid fa-arrow-right-from-bracket" id="signout" ></i>
-            </picture>
+            </section>
         </nav>
     </header>
     <section class="wall-categories">
@@ -48,22 +50,20 @@ export default () => {
   createCategoriesStructure(musicCategories.type);
 
   // funcion para cambiar icono por foto
-  const prueba = () => {
-    // const userPic = divElementWall.querySelector('#userpic');
+  const avatarChange = () => {
     const userPic = divElementWall.querySelector('.wall-nav-pic');
-    const userPicUrl = stateChangeViewer();
-    const userHtml = `<img src="${userPicUrl}" alt="logoBeMusic"></img>`;
-    if (userPicUrl != null) {
-      // userPic.innerHTML = `<img src="${userPicUrl}" alt="logoBeMusic"></img>`;
-      userPic.replaceChild(userHtml, userPic.childNodes[0]);
+    const userPicUrl = googlePhoto();
+    if (userPicUrl !== null) {
+      userPic.innerHTML = `<img src="${userPicUrl}" alt="fotoUsuario"></img>`;
     }
   };
-  prueba();
+  avatarChange();
 
-  // se agrega evento click a boton de login
+  // se agrega evento click a boton de cerrar sesión
   const signoutBtn = divElementWall.querySelector('#signout');
   signoutBtn.addEventListener('click', () => {
-    window.location.href = '#/'; // se cambia ventana a login para iniciar sesion
+    stateChangeViewer();
+    window.location.href = '#/'; // se cambia ventana a login para iniciar sesion de nuevo
   });
 
   return divElementWall;
