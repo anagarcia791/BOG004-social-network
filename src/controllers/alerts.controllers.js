@@ -8,5 +8,5 @@ export const showNotification = (message) => {
   setTimeout(() => {
     notification.style.display = 'none';
     notification.textContent = '';
-  }, 4000);
+  }, 2000);
 };
