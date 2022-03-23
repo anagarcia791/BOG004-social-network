@@ -187,7 +187,7 @@ p.log-sig-line span{
     width: 40px;
 }
 .wall-nav-container{
-    width: 15vw;
+    width: 20vw;
     display: flex;
     justify-content: space-around;
     align-items: center;
