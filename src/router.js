@@ -2,7 +2,9 @@
 import { components } from './index.js';
 
 // funcion de condicion de cambio de rutas
-const changeView = (route) => {
+const changeView = (route, component = components) => {
+// const changeView = (route) => {
+  console.log(component, 'soy component');
   console.log(route, 'route desde router.js');
   const hash = route.split('/')[1];
   console.log(hash, 'hash desde router.js');
@@ -13,12 +15,12 @@ const changeView = (route) => {
     case ' ':
     case '#':
     case '#/':
-    { return sectionHTML.appendChild(components.login()); }
+    { return sectionHTML.appendChild(component.login()); }
     case '#/signup':
     case '#/wall':
-    { return sectionHTML.appendChild(components[hash]()); }
+    { return sectionHTML.appendChild(component[hash]()); }
     default:
-      return sectionHTML.appendChild(components.error404());
+      return sectionHTML.appendChild(component.error404());
   }
 };
 
