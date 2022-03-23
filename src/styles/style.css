@@ -58,6 +58,7 @@ body{
 .log-sig-container{
     width: 90%;
     min-width: 300px;
+    max-width: 300px;
     height: 70vh;
     min-height: 450px;
     padding: 20px;
