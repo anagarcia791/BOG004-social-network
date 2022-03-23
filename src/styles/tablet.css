@@ -8,13 +8,10 @@
 }
 /* FIN estilos para secciones registro y login */
 /* INICIO estilos para seccion muro */
-/* .wall{
-    width: 95vw;
-} */
 .wall-nav{
     padding: 5px 20px 5px 20px;
 }
-.wall-nav-pic{
-    width: 10vw;
+.wall-nav-container{
+    width: 8vw;
 }
 /* FIN estilos para seccion muro */
