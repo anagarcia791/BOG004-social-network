@@ -205,9 +205,10 @@ p.log-sig-line span{
     position: fixed;
     width: 200px;
     padding: 20px;
-    border-radius: 0 0 5px 5px;
-    background: #ec2d2d;
+    border-radius:5px;
+    background: var(--btnfuccia2);
     text-align: center;
-    color: #fff;
+    color: var(--textwhite);
     transition: all 0.4s;
+    z-index: 5;
 }
