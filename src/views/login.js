@@ -43,6 +43,7 @@ export default () => {
       // Signed in
         const user = userCredential.user;
         console.log('con correo y contraseña desde login', user);
+        window.sessionStorage.setItem('islogged', 'true');
         window.location.hash = '#/wall'; // se cambia ventana cuando el usuario se loguea con cuenta
       // ...
       })
