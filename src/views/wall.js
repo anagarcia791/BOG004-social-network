@@ -35,6 +35,8 @@ export default () => {
 
   // funcion para crear estructura de filtros en html
   const createCategoriesStructure = (mCategories) => {
+    window.sessionStorage.getItem('islogged');
+    console.log(window.sessionStorage.getItem('islogged'));
     // declaracion variable para agregar generos musicales
     const musicCategoriesSec = divElementWall.querySelector('#wall-categ-container');
     let musicValues = '';
@@ -62,8 +64,18 @@ export default () => {
   // se agrega evento click a boton de cerrar sesión
   const signoutBtn = divElementWall.querySelector('#signout');
   signoutBtn.addEventListener('click', () => {
+    // persistence()
+    //   .then(() => {
+    //     signInWithEmailAndPassword(auth, email, password);
+    //     // window.location.hash = '#/';
+    //   })
+    //   .catch((error) => {
+    //     // Handle Errors here.
+    //     const errorMessage = error.message;
+    //     console.log(errorMessage);
+    //   });
     stateChangeViewer();
-    window.location.href = '#/'; // se cambia ventana a login para iniciar sesion de nuevo
+    window.location.hash = '#/'; // se cambia ventana a login para iniciar sesion de nuevo
   });
 
   return divElementWall;
