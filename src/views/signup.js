@@ -41,6 +41,7 @@ export default () => {
     if (signupPassword === signupSecondPassword) {
       signupBtnEvent(signupEmail, signupPassword)
         .then(() => {
+          window.sessionStorage.setItem('islogged', 'true');
           window.location.hash = '#/wall'; // se cambia ventana cuando crea cuenta
         })
         .catch((error) => {
@@ -58,6 +59,7 @@ export default () => {
     event.preventDefault();
     signupGoogleEvent()
       .then(() => {
+        window.sessionStorage.setItem('islogged', 'true');
         window.location.hash = '#/wall'; // se cambia ventana cuando autentica cuenta
       }).catch((error) => {
         const errorMessage = error.message;
