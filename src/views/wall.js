@@ -22,6 +22,25 @@ export default () => {
         <section class="wall-categ-container" id="wall-categ-container"></section>
     </section>
     <main class="wall-posts">
+          <section class="modal">
+            <section class = "modal-container">
+              <section class="modal-container-header">
+                <h2>Crear Publicación</h2>
+                <section class="modal-container-category">
+                  <p id="modal-category">Categoría</p>
+                  <i id="modal-container-close" class="fa-solid fa-circle-xmark"></i>
+                </section>
+              </section>
+              <section class="modal-container-user">
+                <i class="fa-solid fa-user" id="userpic"></i>
+                <p class="name">nombre Usuario</p>
+              </section>
+              <section class="modal-text-content">
+                <textarea type='text' id='input-post' placeholder='Comparte tú evento o canción'  maxlength='200' required></textarea>
+              </section>
+                <button disabled type='button' class='modal-btn-post-inactive'>Publicar</button>
+            </section>
+          </section>
         <section class="wall-posts-container">
             <p>aca van las publicaciones</p>
         </section>
@@ -42,13 +61,41 @@ export default () => {
     let musicValues = '';
     // ciclo para crear botones de generos musicales
     mCategories.forEach((value, index) => {
-      musicValues += `<button type="button" id="${value}${index}">${value}</button>`;
+      musicValues += `<button type="button" class="wall-categ-button" id="${value}${index}">${value}</button>`;
     });
     // inserta estructura filtros
     musicCategoriesSec.innerHTML = musicValues;
   };
   // se invoca a la funcion createCategoriesStructure para crear opcion de publicacion
   createCategoriesStructure(musicCategories.type);
+
+  // Función Open Modal
+  const openModal = () => {
+    const categories = divElementWall.querySelectorAll('.wall-categ-button');
+    const modalPublication = divElementWall.querySelector('.modal');
+    categories.forEach((elementCategory) => {
+      elementCategory.addEventListener('click', (e) => {
+        e.preventDefault();
+        modalPublication.classList.add('modal--show');
+        console.log(elementCategory);
+      });
+    });
+  };
+  openModal();
+
+  // Función Close Modal
+  const closeModal = () => {
+    const modalPublication = divElementWall.querySelector('.modal');
+    const modalClose = divElementWall.querySelectorAll('#modal-container-close');
+    modalClose.forEach((elementCategory) => {
+      elementCategory.addEventListener('click', (e) => {
+        e.preventDefault();
+        modalPublication.classList.remove('modal--show');
+        console.log(elementCategory);
+      });
+    });
+  };
+  closeModal();
 
   // funcion para cambiar icono por foto
   const avatarChange = () => {
