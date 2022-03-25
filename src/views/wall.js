@@ -1,5 +1,7 @@
-// se importa funcion del observador de status
-import { googlePhoto, stateChangeViewer } from '../controllers/wall.controller.js';
+// se importa funcion del observador de status y cerrar sesion y notificacion
+import { currentUser, signOutUser } from '../controllers/wall.controller.js';
+import { showNotification } from '../controllers/alerts.controllers.js';
+
 // se crea template de wall
 export default () => {
   const wall = `
@@ -35,8 +37,6 @@ export default () => {
 
   // funcion para crear estructura de filtros en html
   const createCategoriesStructure = (mCategories) => {
-    window.sessionStorage.getItem('islogged');
-    console.log(window.sessionStorage.getItem('islogged'));
     // declaracion variable para agregar generos musicales
     const musicCategoriesSec = divElementWall.querySelector('#wall-categ-container');
     let musicValues = '';
@@ -47,35 +47,30 @@ export default () => {
     // inserta estructura filtros
     musicCategoriesSec.innerHTML = musicValues;
   };
-
   // se invoca a la funcion createCategoriesStructure para crear opcion de publicacion
   createCategoriesStructure(musicCategories.type);
 
   // funcion para cambiar icono por foto
   const avatarChange = () => {
-    const userPic = divElementWall.querySelector('.wall-nav-pic');
-    const userPicUrl = googlePhoto();
-    if (userPicUrl !== null) {
-      userPic.innerHTML = `<img src="${userPicUrl}" alt="fotoUsuario"></img>`;
+    const userPicHTML = divElementWall.querySelector('.wall-nav-pic');
+    const userInfo = currentUser();
+    if (userInfo.photoURL !== null) {
+      userPicHTML.innerHTML = `<img src="${userInfo.photoURL}" alt="fotoUsuario"></img>`;
     }
   };
+  // se invoca a la funcion para cambiar icono por foto
   avatarChange();
 
   // se agrega evento click a boton de cerrar sesión
   const signoutBtn = divElementWall.querySelector('#signout');
   signoutBtn.addEventListener('click', () => {
-    // persistence()
-    //   .then(() => {
-    //     signInWithEmailAndPassword(auth, email, password);
-    //     // window.location.hash = '#/';
-    //   })
-    //   .catch((error) => {
-    //     // Handle Errors here.
-    //     const errorMessage = error.message;
-    //     console.log(errorMessage);
-    //   });
-    stateChangeViewer();
-    window.location.hash = '#/'; // se cambia ventana a login para iniciar sesion de nuevo
+    signOutUser()
+      .then(() => {
+        window.location.hash = '#/';
+      })
+      .catch((error) => {
+        showNotification(error);
+      });
   });
 
   return divElementWall;

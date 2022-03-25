@@ -39,17 +39,12 @@ export default () => {
     const loginEmail = divElementLogin.querySelector('#email').value;
     const loginPassword = divElementLogin.querySelector('#pass').value;
     loginBtnEvent(loginEmail, loginPassword)
-      .then((userCredential) => {
-      // Signed in
-        const user = userCredential.user;
-        console.log('con correo y contraseña desde login', user);
+      .then(() => {
         window.sessionStorage.setItem('islogged', 'true');
         window.location.hash = '#/wall'; // se cambia ventana cuando el usuario se loguea con cuenta
-      // ...
       })
       .catch((error) => {
         const errorMessage = error.message;
-        // console.log(errorMessage);
         showNotification(errorMessage);
       });
   });
@@ -58,17 +53,12 @@ export default () => {
   const authGoogle = divElementLogin.querySelector('#login-google');
   authGoogle.addEventListener('click', () => {
     signupGoogleEvent()
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const user = result.user;
-        console.log('ususario desde Google desde login', user);
+      .then(() => {
+        window.sessionStorage.setItem('islogged', 'true');
         window.location.hash = '#/wall'; // se cambia ventana cuando autentica cuenta
       }).catch((error) => {
-        // Handle Errors here.
         const errorMessage = error.message;
-        // console.log(errorMessage);
         showNotification(errorMessage);
-        // ...
       });
   });
 

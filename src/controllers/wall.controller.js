@@ -2,31 +2,32 @@
 import {
   getAuth,
   signOut,
-  // setPersistence,
-  // browserSessionPersistence,
+  onAuthStateChanged,
 } from '../firebase-init.js';
 
-// funcion para estado de usuario
-export const googlePhoto = () => {
+// funcion para conseguir info user
+export const currentUser = () => {
   const auth = getAuth();
   const user = auth.currentUser;
-  if (user == null) {
-    console.log('no encontro el ususuario', user);
+  if (user === null) {
     window.location.hash = '#/';
-    return 1;
+  } else {
+    window.sessionStorage.getItem('islogged');
+    console.log(window.sessionStorage.getItem('islogged'));
+    window.location.hash = '#/wall';
   }
-  return user.photoURL;
+  return user;
 };
 
-// export const persistence = () => {
-//   const auth = getAuth();
-//   return setPersistence(auth, browserSessionPersistence);
-// };
-
-export const stateChangeViewer = () => {
+// funcion para cerrar sesion
+export const signOutUser = () => {
   const auth = getAuth();
   const signOutEvent = signOut(auth);
-  const user = auth.currentUser;
-  console.log(user, 'hola estoy tratando de desloguearme');
   return signOutEvent;
+};
+
+// funcion observador fanny
+export const observador = () => {
+  const auth = getAuth();
+  return onAuthStateChanged(auth, (user) => user);
 };

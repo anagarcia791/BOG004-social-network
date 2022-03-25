@@ -40,16 +40,12 @@ export default () => {
     const signupSecondPassword = divElementSignup.querySelector('#conf-pass').value;
     if (signupPassword === signupSecondPassword) {
       signupBtnEvent(signupEmail, signupPassword)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          console.log('con correo y contraseña desde signup', user);
+        .then(() => {
           window.location.hash = '#/wall'; // se cambia ventana cuando crea cuenta
         })
         .catch((error) => {
           const errorMessage = error.message;
           showNotification(errorMessage);
-          // ..
         });
     } else {
       showNotification('verificar contraseñas');
@@ -61,16 +57,11 @@ export default () => {
   authGoogle.addEventListener('click', (event) => {
     event.preventDefault();
     signupGoogleEvent()
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const user = result.user;
-        console.log('ususario desde Google desde signup', user);
+      .then(() => {
         window.location.hash = '#/wall'; // se cambia ventana cuando autentica cuenta
       }).catch((error) => {
-        // Handle Errors here.
         const errorMessage = error.message;
-        console.log(errorMessage);
-        // ...
+        showNotification(errorMessage);
       });
   });
 
