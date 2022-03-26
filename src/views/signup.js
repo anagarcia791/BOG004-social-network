@@ -5,26 +5,26 @@ import { showNotification } from '../controllers/alerts.controllers.js';
 // se crea template de registro
 export default () => {
   const viewSignup = `
-  <section class="bg-cont">
-      <form class="log-sig">
-          <section class="log-sig-logobemusic">
-              <h1 class="log-sig-title">BeMusic</h1>
-              <img src="./assets/images/logobemusic.png" alt="logoBeMusic"></img>
+  <section class='bg-cont'>
+      <form class='log-sig'>
+          <section class='log-sig-logobemusic'>
+              <h1 class='log-sig-title'>BeMusic</h1>
+              <img src='./assets/images/logobemusic.png' alt='logoBeMusic'></img>
           </section>
-          <section class="log-sig-container">
-            <section class="log-sig-inputs">
-                <input id="email" type="email" value="" placeholder="Correo"/>
-                <input id="pass" type="password" value="" placeholder="Contraseña"/>
-                <input id="conf-pass" type="password" value="" placeholder="Confirmar contraseña"/>
+          <section class='log-sig-container'>
+            <section class='log-sig-inputs'>
+                <input id='email' type='email' value='' placeholder='Correo'/>
+                <input id='pass' type='password' value='' placeholder='Contraseña'/>
+                <input id='conf-pass' type='password' value='' placeholder='Confirmar contraseña'/>
             </section>
-            <button type="button" id="signup-btn" class="log-sig-btn">Continuar</button>
-            <p class="log-sig-line"><span>O</span></p>
-            <section class="log-sig-google">
+            <button type='button' id='signup-btn' class='log-sig-btn'>Continuar</button>
+            <p class='log-sig-line'><span>O</span></p>
+            <section class='log-sig-google'>
                 <p>Iniciar sesión con</p>
-                <img id="auth-google" src="./assets/images/logogoogle.png" alt="logoGoogle"></img>
+                <img id='auth-google' src='./assets/images/logogoogle.png' alt='logoGoogle'></img>
             </section>
-            <section class = "log-sig-load">
-                <button type="button" id="login-btn-load" class="log-sig-btn">Iniciar sesión</button>
+            <section class = 'log-sig-load'>
+                <button type='button' id='login-btn-load' class='log-sig-btn'>Iniciar sesión</button>
             </section>    
           </section>
       </form>
