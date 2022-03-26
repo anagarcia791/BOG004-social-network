@@ -6,18 +6,27 @@ const changeView = (route, component = components) => {
   const hash = route.split('/')[1];
   const sectionHTML = document.querySelector('#routers-container');
   sectionHTML.innerHTML = '';
+  let sessionRoute;
+  console.log(window.sessionStorage.getItem('islogged'));
   switch (route) {
     case '':
     case ' ':
     case '#':
     case '#/':
-    { return sectionHTML.appendChild(component.login()); }
+      if (window.sessionStorage.getItem('islogged') === 'true') {
+        sessionRoute = sectionHTML.appendChild(component.wall());
+      } else {
+        sessionRoute = sectionHTML.appendChild(component.login());
+      }
+      break;
     case '#/signup':
     case '#/wall':
-    { return sectionHTML.appendChild(component[hash]()); }
+      sessionRoute = sectionHTML.appendChild(component[hash]());
+      break;
     default:
-      return sectionHTML.appendChild(component.error404());
+      sessionRoute = sectionHTML.appendChild(component.error404());
   }
+  return sessionRoute;
 };
 
 export { changeView };
