@@ -124,6 +124,7 @@ export default () => {
   signoutBtn.addEventListener('click', () => {
     signOutUser()
       .then(() => {
+        window.sessionStorage.setItem('islogged', 'false');
         window.location.hash = '#/';
       })
       .catch((error) => {
