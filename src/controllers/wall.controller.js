@@ -12,8 +12,6 @@ export const currentUser = () => {
   if (user === null) {
     window.location.hash = '#/';
   } else {
-    window.sessionStorage.getItem('islogged');
-    console.log(window.sessionStorage.getItem('islogged'));
     window.location.hash = '#/wall';
   }
   return user;
