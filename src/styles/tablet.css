@@ -15,3 +15,9 @@
     width: 15vw;
 }
 /* FIN estilos para seccion muro */
+
+.modal-container{
+
+    max-width: 600px;
+
+}
