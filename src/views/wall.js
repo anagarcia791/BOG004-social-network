@@ -62,7 +62,6 @@ export default () => {
 
   // funcion para cambiar icono por foto
   const avatarChange = () => {
-    // const userPicHTML = divElementWall.querySelector('.wall-nav-pic');
     const userInfo = currentUser();
     console.log(userInfo);
     if (userInfo) {
