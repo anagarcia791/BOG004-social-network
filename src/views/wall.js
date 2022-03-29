@@ -129,17 +129,21 @@ export default () => {
 
   // Función para crear publicación
   const publish = () => {
+    const modalPublication = divElementWall.querySelector('.modal');
     const formPublish = divElementWall.querySelector('#modal-form');
     formPublish.addEventListener('submit', (e) => {
       e.preventDefault();
       console.log('se publicó con submittt por fin!!!!');
       const publication = formPublish['input-post'];
-      createPublication(publication.value);
+      const publicationGenere = divElementWall.querySelector('#modal-category');
+      createPublication(publication.value, publicationGenere.textContent);
       formPublish.reset();
+      modalPublication.classList.remove('modal--show');
     });
   };
   publish();
 
+  // Funcion para leer publicaciones
   const postReader = async () => {
     const postContainer = divElementWall.querySelector('.wall-posts-container');
     const querySnapshot = await readPublication();
@@ -149,18 +153,37 @@ export default () => {
         const post = doc.data();
         console.log(post);
         postStructure += `
-          <div>
+          <section class='post'>
             <p>${post.inputPost}</p>
-          </div>
+            <p>${post.genere}</p>
+            <button class='post-btn-delete-publication'>Eliminar</button>
+          </section>
         `;
       });
       postContainer.innerHTML = postStructure;
+      // const Lina = divElementWall.querySelectorAll('.modal-btn-delete-publication');
+      // console.log('prueba Lina', Lina);
     });
     onReadPublication(querySnapshot);
+    return postContainer;
   };
-  postReader();
+  // postReader();
 
-  // se agrega evento click a boton de cerrar sesión
+  // funcion para eliminar post
+  const postRemover = async () => {
+    const postContainerHTML = await postReader();
+    console.log('post html', postContainerHTML);
+    const deleteButton = postContainerHTML.querySelectorAll('.post-btn-delete-publication');
+    console.log(deleteButton);
+    deleteButton.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        console.log('mensaje');
+      });
+    });
+  };
+  postRemover();
+
+  // Se agrega evento click a boton de cerrar sesión
   const signoutBtn = divElementWall.querySelector('#signout');
   signoutBtn.addEventListener('click', (e) => {
     e.preventDefault();
