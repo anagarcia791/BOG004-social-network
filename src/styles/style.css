@@ -287,6 +287,21 @@ p.log-sig-line span{
 }
 /* FIN ventana Modal */
 
+/* Inicio Estilos Post */
+
+.wall-posts-container{
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 30px;
+}
+.post {
+    border: 1px solid var(--btnblue3);
+    width: 90%;
+    padding: 20px;
+}
 
 
 
