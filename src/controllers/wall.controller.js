@@ -50,9 +50,9 @@ export const watcher = () => {
 // };
 
 // Función para crear publicación
-export const createPublication = (inputPost) => {
-  console.log(inputPost);
-  addDoc(collection(db, 'publications'), { inputPost });
+export const createPublication = (inputPost, genere) => {
+  console.log(inputPost, genere);
+  addDoc(collection(db, 'publications'), { inputPost, genere });
 };
 
 // Función para leer publicación
