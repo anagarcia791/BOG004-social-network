@@ -30,10 +30,24 @@ export const signOutUser = () => {
 };
 
 // funcion observador fanny
-export const observador = () => {
+export const watcher = () => {
   const auth = getAuth();
-  return onAuthStateChanged(auth, (user) => user);
+  onAuthStateChanged(auth, (user) => {
+    let uid;
+    if (user) {
+      uid = user.uid;
+      console.log(uid, 'id del usuario');
+    } else {
+      uid = null;
+    }
+    return uid;
+  });
 };
+
+// export const observador = () => {
+//   const auth = getAuth();
+//   return onAuthStateChanged(auth, (user) => user);
+// };
 
 // Función para crear publicación
 export const createPublication = (inputPost) => {
