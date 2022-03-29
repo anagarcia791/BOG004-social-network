@@ -5,6 +5,7 @@ import {
   createPublication,
   readPublication,
   onReadPublication,
+  watcher,
 } from '../controllers/wall.controller.js';
 import { showNotification } from '../controllers/alerts.controllers.js';
 
@@ -56,6 +57,7 @@ export default () => {
   divElementWall.innerHTML = wall;
   console.log(window.sessionStorage.getItem('islogged'), 'sessionStorage desde muro');
   currentUser();
+  watcher();
 
   // funcion para verificar estado de url de foto
   const photoCondition = (userInfo) => {
