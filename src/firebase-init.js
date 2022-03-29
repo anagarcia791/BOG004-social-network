@@ -1,6 +1,9 @@
+// https://firebase.google.com/docs/web/setup#available-libraries
 // Import the functions you need from the SDKs you need
 // eslint-disable-next-line import/no-unresolved
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js';
+
+// Se importan Funciones de Auth
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -9,8 +12,20 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  setPersistence,
+  browserSessionPersistence,
 // eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js';
+
+// Se importan funciones de FIRESTORE
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  onSnapshot,
+// eslint-disable-next-line import/no-unresolved
+} from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore.js';
 
 // Your web app's Firebase configuration is:
 const firebaseConfig = {
@@ -25,6 +40,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
+export const db = getFirestore();
 
 // export Firebase functions of auth
 export {
@@ -35,6 +51,13 @@ export {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  setPersistence,
+  browserSessionPersistence,
+  collection,
+  getFirestore,
+  addDoc,
+  getDocs,
+  onSnapshot,
 };
 
 // se declara como nuestro proveedor a google

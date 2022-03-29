@@ -1,5 +1,11 @@
 // se importa funcion del observador de status y cerrar sesion y notificacion
-import { currentUser, signOutUser } from '../controllers/wall.controller.js';
+import {
+  currentUser,
+  signOutUser,
+  createPublication,
+  readPublication,
+  onReadPublication,
+} from '../controllers/wall.controller.js';
 import { showNotification } from '../controllers/alerts.controllers.js';
 
 // se crea template de wall
@@ -22,7 +28,7 @@ export default () => {
         <section class='wall-categ-container' id='wall-categ-container'></section>
     </section>
     <main class='wall-posts'>
-          <section class='modal'>
+          <form class='modal' id='modal-form'>
             <section class = 'modal-container'>
               <section class='modal-container-header'>
                 <h2>Crear Publicación</h2>
@@ -38,17 +44,18 @@ export default () => {
               <section class='modal-text-content'>
                 <textarea type='text' id='input-post' placeholder='Comparte tú evento o canción'  maxlength='200' required></textarea>
               </section>
-                <button disabled type='button' class='modal-btn-post-inactive'>Publicar</button>
+                <button type='submit' class='modal-btn-post-inactive' id='modal-btn-publish'>Publicar</button>
             </section>
-          </section>
+          </form>
         <section class='wall-posts-container'>
-            <p>aca van las publicaciones</p>
         </section>
     </main>
   </section>`;
 
   const divElementWall = document.createElement('div');
   divElementWall.innerHTML = wall;
+  console.log(window.sessionStorage.getItem('islogged'), 'sessionStorage desde muro');
+  currentUser();
 
   // funcion para verificar estado de url de foto
   const photoCondition = (userInfo) => {
@@ -63,7 +70,7 @@ export default () => {
   // funcion para cambiar icono por foto
   const avatarChange = () => {
     const userInfo = currentUser();
-    console.log(userInfo);
+    console.log(userInfo, 'Info usuario en muro');
     if (userInfo) {
       photoCondition(userInfo);
     }
@@ -82,7 +89,7 @@ export default () => {
     let musicValues = '';
     // ciclo para crear botones de generos musicales
     mCategories.forEach((value, index) => {
-      musicValues += `<button type='button' class='wall-categ-button' id='${value}${index}'>${value}</button>`;
+      musicValues += `<button type='button' class='wall-categ-button' id='${value}${index}' value='${value}'>${value}</button>`;
     });
     // inserta estructura filtros
     musicCategoriesSec.innerHTML = musicValues;
@@ -94,11 +101,12 @@ export default () => {
   const openModal = () => {
     const categories = divElementWall.querySelectorAll('.wall-categ-button');
     const modalPublication = divElementWall.querySelector('.modal');
+    const pCategory = divElementWall.querySelector('#modal-category');
     categories.forEach((elementCategory) => {
       elementCategory.addEventListener('click', (e) => {
         e.preventDefault();
+        pCategory.innerHTML = elementCategory.value;
         modalPublication.classList.add('modal--show');
-        console.log(elementCategory);
       });
     });
   };
@@ -112,15 +120,48 @@ export default () => {
       elementCategory.addEventListener('click', (e) => {
         e.preventDefault();
         modalPublication.classList.remove('modal--show');
-        console.log(elementCategory);
       });
     });
   };
   closeModal();
 
+  // Función para crear publicación
+  const publish = () => {
+    const formPublish = divElementWall.querySelector('#modal-form');
+    formPublish.addEventListener('submit', (e) => {
+      e.preventDefault();
+      console.log('se publicó con submittt por fin!!!!');
+      const publication = formPublish['input-post'];
+      createPublication(publication.value);
+      formPublish.reset();
+    });
+  };
+  publish();
+
+  const postReader = async () => {
+    const postContainer = divElementWall.querySelector('.wall-posts-container');
+    const querySnapshot = await readPublication();
+    onReadPublication((snapShopResult) => {
+      let postStructure = '';
+      snapShopResult.forEach((doc) => {
+        const post = doc.data();
+        console.log(post);
+        postStructure += `
+          <div>
+            <p>${post.inputPost}</p>
+          </div>
+        `;
+      });
+      postContainer.innerHTML = postStructure;
+    });
+    onReadPublication(querySnapshot);
+  };
+  postReader();
+
   // se agrega evento click a boton de cerrar sesión
   const signoutBtn = divElementWall.querySelector('#signout');
-  signoutBtn.addEventListener('click', () => {
+  signoutBtn.addEventListener('click', (e) => {
+    e.preventDefault();
     signOutUser()
       .then(() => {
         window.sessionStorage.setItem('islogged', 'false');

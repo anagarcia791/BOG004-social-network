@@ -99,8 +99,13 @@ body{
     border: 1px solid var(--btnblue4);
 }
 ::placeholder {
-    font-size: 1rem;
-    
+    font-size: 1rem; 
+}
+.log-sig-inputs input:focus{
+    outline: none;
+}
+.log-sig-inputs input:active{
+    outline: none;
 }
 .log-sig-btn {
     padding: 10px 20px 10px 20px;
@@ -264,14 +269,11 @@ p.log-sig-line span{
 #input-post::placeholder{
     font-size: .8rem;
     font-family: 'Ubuntu', sans-serif ;
-    padding: 1em;
 }
 #input-post:focus{
-    border: none;
     outline: none;
 }
 #input-post:active{
-    border: none;
     outline: none;
 }
 .modal-btn-post-inactive{
