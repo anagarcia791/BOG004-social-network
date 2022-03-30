@@ -140,9 +140,9 @@ export default () => {
   publish();
 
   // Funcion para leer publicaciones
-  const postReader = async () => {
+  const postsManagement = () => {
     const postContainer = divElementWall.querySelector('.wall-posts-container');
-    const querySnapshot = await readPublication();
+    const querySnapshot = readPublication();
     onReadPublication((snapShopResult) => {
       let postStructure = '';
       snapShopResult.forEach((doc) => {
@@ -156,27 +156,22 @@ export default () => {
         `;
       });
       postContainer.innerHTML = postStructure;
-      // const Lina = divElementWall.querySelectorAll('.modal-btn-delete-publication');
-      // console.log('prueba Lina', Lina);
+
+      // funcion para eliminar post
+      const postRemover = () => {
+        const deleteButton = divElementWall.querySelectorAll('.post-btn-delete-publication');
+        console.log(deleteButton);
+        deleteButton.forEach((btn) => {
+          btn.addEventListener('click', () => {
+            console.log('mensaje');
+          });
+        });
+      };
+      postRemover();
     });
     onReadPublication(querySnapshot);
-    return postContainer;
   };
-  // postReader();
-
-  // funcion para eliminar post
-  const postRemover = async () => {
-    const postContainerHTML = await postReader();
-    console.log('post html', postContainerHTML);
-    const deleteButton = postContainerHTML.querySelectorAll('.post-btn-delete-publication');
-    console.log(deleteButton);
-    deleteButton.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        console.log('mensaje');
-      });
-    });
-  };
-  postRemover();
+  postsManagement();
 
   // Se agrega evento click a boton de cerrar sesión
   const signoutBtn = divElementWall.querySelector('#signout');
