@@ -7,6 +7,7 @@ html {
     height: 100%;
 }
 :root{
+    --bgCategories:#e6daf3;
     --btnAll:#3F37C9;
     --btnedit:#4361EE;
     --btnfuccia1:#F72585;
@@ -191,16 +192,56 @@ p.log-sig-line span{
     width: 40px;
 }
 .wall-nav-container{
-    width: 20vw;
-    display: flex;
+    width: 30vw;
+    /* display: flex;
     justify-content: space-around;
-    align-items: center;
+    align-items: center; */
     font-size: 1.8rem;
     margin-top: 0px;
 }
 .wall-nav-pic img{
     border-radius: 50%;
     margin-top: 2px;
+}
+.wall-categories{
+    background-color: var(--bgCategories) ;
+    padding: 10px;
+    border-radius: 10px;
+}
+.wall-categories h2{
+    text-align: center;
+    padding: 10px;
+    font-size: 1.2rem;
+}
+.wall-categ-button{
+    border: none;
+    padding: .5rem .8rem;
+    border-radius: 1rem;
+    color: var(--textwhite);
+}
+#Rock0{
+    background-color: var(--btnfuccia2);
+}
+#Pop1{
+    background-color: var(--btnpurple1);
+}
+#Romántica2{
+    background-color: var(--btnpurple2);
+}
+#Reggaeton3{
+    background-color: var(--btnpurple3);
+}
+#Electrónica4{
+    background-color: var(--btnpurple4);
+}
+#Bailable5{
+    background-color: var(--btnblue1);
+}
+#Country6{
+    background-color: var(--btnblue2);
+}
+#Salsa7{
+    background-color: var(--btnblue3);
 }
 /* FIN estilos para seccion muro */
 
@@ -242,6 +283,10 @@ p.log-sig-line span{
 .modal-container-header h2{
     font-size: 1rem;
 }
+.modal-container-icono img{
+    border-radius: 50%;
+    width: 50px;
+}
 .modal-container-category{
     width: 40%;
     display: flex;
@@ -253,7 +298,7 @@ p.log-sig-line span{
     font-size: 1.2rem;
 }
 .modal-container-user{
-    width: 60%;
+    width: 50%;
     display: flex;
     justify-content: space-between;
     align-items: center;
