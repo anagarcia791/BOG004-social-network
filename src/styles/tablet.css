@@ -11,13 +11,18 @@
 .wall-nav{
     padding: 5px 20px 5px 20px;
 }
-.wall-nav-container{
-    width: 15vw;
+.wall-nav img{
+    width: 80px;
 }
+.wall-nav-container {
+    width: 25vw;
+    font-size: 4rem;
+}
+
 /* FIN estilos para seccion muro */
-
 .modal-container{
-
     max-width: 600px;
-
+}
+.modal-container-user{
+    width: 25%;
 }
