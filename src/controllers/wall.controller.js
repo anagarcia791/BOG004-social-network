@@ -10,7 +10,7 @@ import {
   onSnapshot,
 } from '../firebase-init.js';
 
-// funcion observador fanny
+// funcion observador
 export const watcher = () => {
   const auth = getAuth();
   let watcherUser;
