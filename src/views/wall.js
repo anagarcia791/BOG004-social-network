@@ -5,6 +5,7 @@ import {
   createPublication,
   readPublication,
   onReadPublication,
+  deletePublication,
 } from '../controllers/wall.controller.js';
 import { showNotification } from '../controllers/alerts.controllers.js';
 
@@ -38,8 +39,10 @@ export default () => {
                 </section>
               </section>
               <section class='modal-container-user'>
-                <i class='fa-solid fa-user' id='userpic'></i>
-                <p class='name'>nombre Usuario</p>
+                <section class='modal-container-icono'>
+                  <i class='fa-solid fa-user' id='userpic'></i>
+                </section>
+                <p class='modal-user-name'>nombre Usuario</p>
               </section>
               <section class='modal-text-content'>
                 <textarea type='text' id='input-post' placeholder='Comparte tú evento o canción'  maxlength='200' required></textarea>
@@ -54,11 +57,12 @@ export default () => {
 
   const divElementWall = document.createElement('div');
   divElementWall.innerHTML = wall;
-  console.log(window.sessionStorage.getItem('islogged'), 'sessionStorage desde muro');
+  const wallControllerUserInfo = currentUser();
+  console.log(wallControllerUserInfo, 'Info usuario en muro');
 
   // funcion para verificar estado de url de foto
-  const photoCondition = (userInfo) => {
-    const userPicHTML = divElementWall.querySelector('.wall-nav-pic');
+  const photoCondition = (userInfo, catchUserPicHTML) => {
+    const userPicHTML = catchUserPicHTML;
     if (userInfo === null || userInfo.photoURL === null) {
       userPicHTML.innerHTML = '<i class=\'fa-solid fa-user\' id=\'userpic\'></i>';
     } else {
@@ -67,15 +71,14 @@ export default () => {
   };
 
   // funcion para cambiar icono por foto
-  const avatarChange = () => {
-    const userInfo = currentUser();
-    console.log(userInfo, 'Info usuario en muro');
+  const avatarChange = (userInfo) => {
+    const catchUserPicHTML = divElementWall.querySelector('.wall-nav-pic');
     if (userInfo !== undefined && userInfo !== null) {
-      photoCondition(userInfo);
+      photoCondition(userInfo, catchUserPicHTML);
     }
   };
   // se invoca a la funcion para cambiar icono por foto
-  avatarChange();
+  avatarChange(wallControllerUserInfo);
 
   const musicCategories = {
     type: ['Rock', 'Pop', 'Romántica', 'Reggaeton', 'Electrónica', 'Bailable', 'Country', 'Salsa'],
@@ -97,19 +100,25 @@ export default () => {
   createCategoriesStructure(musicCategories.type);
 
   // Función Open Modal
-  const openModal = () => {
+  const openModal = (userInfo) => {
     const categories = divElementWall.querySelectorAll('.wall-categ-button');
     const modalPublication = divElementWall.querySelector('.modal');
     const pCategory = divElementWall.querySelector('#modal-category');
+    const catchUserPicHTMLmodal = divElementWall.querySelector('.modal-container-icono');
+    const catchUserEmail = divElementWall.querySelector('.modal-user-name');
     categories.forEach((elementCategory) => {
       elementCategory.addEventListener('click', (e) => {
         e.preventDefault();
         pCategory.innerHTML = elementCategory.value;
+        photoCondition(userInfo, catchUserPicHTMLmodal);
+        const userName = userInfo.email;
+        const userNameString = userName.toString().split('@');
+        catchUserEmail.innerHTML = userNameString[0];
         modalPublication.classList.add('modal--show');
       });
     });
   };
-  openModal();
+  openModal(wallControllerUserInfo);
 
   // Función Close Modal
   const closeModal = () => {
@@ -151,7 +160,7 @@ export default () => {
           <section class='post'>
             <p>${post.inputPost}</p>
             <p>${post.genere}</p>
-            <button class='post-btn-delete-publication'>Eliminar</button>
+            <button class='post-btn-delete-publication' data-publicationid='${doc.id}'>Eliminar</button>
           </section>
         `;
       });
@@ -160,10 +169,10 @@ export default () => {
       // funcion para eliminar post
       const postRemover = () => {
         const deleteButton = divElementWall.querySelectorAll('.post-btn-delete-publication');
-        console.log(deleteButton);
+        // console.log(deleteButton);
         deleteButton.forEach((btn) => {
-          btn.addEventListener('click', () => {
-            console.log('mensaje');
+          btn.addEventListener('click', ({ target: { dataset } }) => {
+            deletePublication(dataset.publicationid);
           });
         });
       };
