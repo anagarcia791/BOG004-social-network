@@ -13,7 +13,7 @@ const changeView = (route, component = components) => {
     case ' ':
     case '#':
     case '#/':
-      if (window.sessionStorage.getItem('islogged') === 'true') {
+      if (window.sessionStorage.getItem('islogged') === 'true' && window.sessionStorage.getItem('islogged') !== null) {
         sessionRoute = sectionHTML.appendChild(component.wall());
       } else {
         sessionRoute = sectionHTML.appendChild(component.login());
