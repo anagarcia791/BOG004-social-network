@@ -24,6 +24,8 @@ import {
   addDoc,
   getDocs,
   onSnapshot,
+  deleteDoc,
+  doc,
 // eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore.js';
 
@@ -58,6 +60,8 @@ export {
   addDoc,
   getDocs,
   onSnapshot,
+  deleteDoc,
+  doc,
 };
 
 // se declara como nuestro proveedor a google
