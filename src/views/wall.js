@@ -5,7 +5,6 @@ import {
   createPublication,
   readPublication,
   onReadPublication,
-  watcher,
 } from '../controllers/wall.controller.js';
 import { showNotification } from '../controllers/alerts.controllers.js';
 
@@ -56,8 +55,6 @@ export default () => {
   const divElementWall = document.createElement('div');
   divElementWall.innerHTML = wall;
   console.log(window.sessionStorage.getItem('islogged'), 'sessionStorage desde muro');
-  currentUser();
-  watcher();
 
   // funcion para verificar estado de url de foto
   const photoCondition = (userInfo) => {
@@ -73,7 +70,7 @@ export default () => {
   const avatarChange = () => {
     const userInfo = currentUser();
     console.log(userInfo, 'Info usuario en muro');
-    if (userInfo) {
+    if (userInfo !== undefined && userInfo !== null) {
       photoCondition(userInfo);
     }
   };
@@ -133,7 +130,6 @@ export default () => {
     const formPublish = divElementWall.querySelector('#modal-form');
     formPublish.addEventListener('submit', (e) => {
       e.preventDefault();
-      console.log('se publicó con submittt por fin!!!!');
       const publication = formPublish['input-post'];
       const publicationGenere = divElementWall.querySelector('#modal-category');
       createPublication(publication.value, publicationGenere.textContent);
@@ -151,7 +147,6 @@ export default () => {
       let postStructure = '';
       snapShopResult.forEach((doc) => {
         const post = doc.data();
-        console.log(post);
         postStructure += `
           <section class='post'>
             <p>${post.inputPost}</p>
