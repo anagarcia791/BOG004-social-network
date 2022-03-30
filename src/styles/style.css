@@ -193,9 +193,9 @@ p.log-sig-line span{
 }
 .wall-nav-container{
     width: 30vw;
-    /* display: flex;
+    display: flex;
     justify-content: space-around;
-    align-items: center; */
+    align-items: center;
     font-size: 1.8rem;
     margin-top: 0px;
 }
