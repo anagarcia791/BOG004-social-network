@@ -38,19 +38,28 @@ export default () => {
     const signupEmail = divElementSignup.querySelector('#email').value;
     const signupPassword = divElementSignup.querySelector('#pass').value;
     const signupSecondPassword = divElementSignup.querySelector('#conf-pass').value;
+    const isUserCreated = {
+      status: false,
+      errorCode: '',
+    };
     if (signupPassword === signupSecondPassword) {
       signupBtnEvent(signupEmail, signupPassword)
         .then(() => {
           window.sessionStorage.setItem('islogged', 'true');
+          isUserCreated.status = true;
           window.location.hash = '#/wall'; // se cambia ventana cuando crea cuenta
         })
         .catch((error) => {
+          isUserCreated.status = false;
+          isUserCreated.errorCode = error.code;
           const errorMessage = error.message;
           showNotification(errorMessage);
         });
     } else {
       showNotification('verificar contraseñas');
     }
+    console.log(isUserCreated, 'hola soy isUserCreated desde signup');
+    return isUserCreated;
   });
 
   // se agrega evento click a imagen para autenticar usuario con google
