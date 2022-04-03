@@ -15,7 +15,7 @@ export const signupBtnEvent = (signupEmail, signupPassword) => {
 };
 
 // funcion para autenticar usuario con google
-export const signupGoogleEvent = () => {
+export const authenticatorGoogleEvent = () => {
   const auth = getAuth();
   return signInWithPopup(auth, provider);
 };

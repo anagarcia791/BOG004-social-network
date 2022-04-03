@@ -1,5 +1,5 @@
 // se importa funciones de firebase y de notificacion
-import { signupGoogleEvent } from '../controllers/signup.controller.js';
+import { authenticatorGoogleEvent } from '../controllers/signup.controller.js';
 import { loginBtnEvent } from '../controllers/login.controller.js';
 import { showNotification } from '../controllers/alerts.controllers.js';
 
@@ -33,7 +33,7 @@ export default () => {
   const divElementLogin = document.createElement('div');
   divElementLogin.innerHTML = viewLogin;
 
-  // se agrega evento click a boton continuar para inisiar sesion
+  // se agrega evento click a boton continuar para iniciar sesion
   const loginBtn = divElementLogin.querySelector('#login-btn');
   loginBtn.addEventListener('click', () => {
     const loginEmail = divElementLogin.querySelector('#email').value;
@@ -52,7 +52,7 @@ export default () => {
   // se agrega evento click a imagen para autenticar usuario con google
   const authGoogle = divElementLogin.querySelector('#login-google');
   authGoogle.addEventListener('click', () => {
-    signupGoogleEvent()
+    authenticatorGoogleEvent()
       .then(() => {
         window.sessionStorage.setItem('islogged', 'true');
         window.location.hash = '#/wall'; // se cambia ventana cuando autentica cuenta

@@ -1,4 +1,4 @@
-// Funciones de Firebase
+// funciones de Firebase
 export const initializeApp = () => Promise.resolve({});
 export const getAuth = () => Promise.resolve({});
 export const signInWithPopup = () => Promise.resolve({});
@@ -25,7 +25,7 @@ export const createUserWithEmailAndPassword = jest.fn((email, password) => {
   return promiseResult;
 });
 
-// Funciones de Firestore
+// funciones de Firestore
 export const getFirestore = () => Promise.resolve({});
 export const collection = () => Promise.resolve({});
 export const addDoc = () => Promise.resolve({});

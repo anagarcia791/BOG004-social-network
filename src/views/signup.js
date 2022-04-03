@@ -1,5 +1,5 @@
 // se importa funciones de firebase y de notificacion
-import { signupBtnEvent, signupGoogleEvent } from '../controllers/signup.controller.js';
+import { signupBtnEvent, authenticatorGoogleEvent } from '../controllers/signup.controller.js';
 import { showNotification } from '../controllers/alerts.controllers.js';
 
 // se crea template de registro
@@ -66,7 +66,7 @@ export default () => {
   const authGoogle = divElementSignup.querySelector('#auth-google');
   authGoogle.addEventListener('click', (event) => {
     event.preventDefault();
-    signupGoogleEvent()
+    authenticatorGoogleEvent()
       .then(() => {
         window.sessionStorage.setItem('islogged', 'true');
         window.location.hash = '#/wall'; // se cambia ventana cuando autentica cuenta

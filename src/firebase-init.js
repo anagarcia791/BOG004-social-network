@@ -1,9 +1,9 @@
 // https://firebase.google.com/docs/web/setup#available-libraries
-// Import the functions you need from the SDKs you need
+
 // eslint-disable-next-line import/no-unresolved
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js';
 
-// Se importan Funciones de Auth
+// se importan Funciones de AUTH
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -17,7 +17,7 @@ import {
 // eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js';
 
-// Se importan funciones de FIRESTORE
+// se importan funciones de FIRESTORE
 import {
   getFirestore,
   collection,
@@ -26,6 +26,8 @@ import {
   onSnapshot,
   deleteDoc,
   doc,
+  serverTimestamp,
+  orderBy,
 // eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore.js';
 
@@ -40,11 +42,11 @@ const firebaseConfig = {
   measurementId: 'G-ESZG030Z67',
 };
 
-// Initialize Firebase
+// inicializacion de firebase y data base
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore();
 
-// export Firebase functions of auth
+// se exportan funciones de AUTH y FIRESTORE
 export {
   getAuth,
   createUserWithEmailAndPassword,
@@ -62,7 +64,9 @@ export {
   onSnapshot,
   deleteDoc,
   doc,
+  serverTimestamp,
+  orderBy,
 };
 
-// se declara como nuestro proveedor a google
+// se declara a google como nuestro proveedor
 export const provider = new GoogleAuthProvider();

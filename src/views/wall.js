@@ -4,7 +4,7 @@ import {
   signOutUser,
   createPublication,
   readPublication,
-  onReadPublication,
+  readAllPublications,
   deletePublication,
 } from '../controllers/wall.controller.js';
 import { showNotification } from '../controllers/alerts.controllers.js';
@@ -77,29 +77,25 @@ export default () => {
       photoCondition(userInfo, catchUserPicHTML);
     }
   };
-  // se invoca a la funcion para cambiar icono por foto
   avatarChange(wallControllerUserInfo);
 
+  // se crea objeto para categorias de musica
   const musicCategories = {
     type: ['Rock', 'Pop', 'Romántica', 'Reggaeton', 'Electrónica', 'Bailable', 'Country', 'Salsa'],
   };
 
-  // funcion para crear estructura de filtros en html
+  // funcion para crear estructura de filtros por categorias de musica en html
   const createCategoriesStructure = (mCategories) => {
-    // declaracion variable para agregar generos musicales
     const musicCategoriesSec = divElementWall.querySelector('#wall-categ-container');
     let musicValues = '';
-    // ciclo para crear botones de generos musicales
     mCategories.forEach((value, index) => {
       musicValues += `<button type='button' class='wall-categ-button' id='${value}${index}' value='${value}'>${value}</button>`;
     });
-    // inserta estructura filtros
     musicCategoriesSec.innerHTML = musicValues;
   };
-  // se invoca a la funcion createCategoriesStructure para crear opcion de publicacion
   createCategoriesStructure(musicCategories.type);
 
-  // Función Open Modal
+  // funcion para abrir modal de publicacion
   const openModal = (userInfo) => {
     const categories = divElementWall.querySelectorAll('.wall-categ-button');
     const modalPublication = divElementWall.querySelector('.modal');
@@ -120,7 +116,7 @@ export default () => {
   };
   openModal(wallControllerUserInfo);
 
-  // Función Close Modal
+  // funcion para cerrar modal de publicacion
   const closeModal = () => {
     const modalPublication = divElementWall.querySelector('.modal');
     const modalClose = divElementWall.querySelectorAll('#modal-container-close');
@@ -133,33 +129,38 @@ export default () => {
   };
   closeModal();
 
-  // Función para crear publicación
-  const publish = () => {
+  // funcion para crear publicación
+  const publish = (userInfo) => {
     const modalPublication = divElementWall.querySelector('.modal');
     const formPublish = divElementWall.querySelector('#modal-form');
     formPublish.addEventListener('submit', (e) => {
       e.preventDefault();
       const publication = formPublish['input-post'];
       const publicationGenere = divElementWall.querySelector('#modal-category');
-      createPublication(publication.value, publicationGenere.textContent);
+      const publicationUid = userInfo.uid;
+      createPublication(publication.value, publicationGenere.textContent, publicationUid);
       formPublish.reset();
       modalPublication.classList.remove('modal--show');
     });
   };
-  publish();
+  publish(wallControllerUserInfo);
 
-  // Funcion para leer publicaciones
+  // funcion para manejar publicaciones
   const postsManagement = () => {
     const postContainer = divElementWall.querySelector('.wall-posts-container');
     const querySnapshot = readPublication();
-    onReadPublication((snapShopResult) => {
+    // funcion para leer todas las publicaciones de manera instantanea
+    readAllPublications((snapShopResult) => {
       let postStructure = '';
       snapShopResult.forEach((doc) => {
         const post = doc.data();
+        const postId = doc.id;
+        const fecha = doc.postCreatedAt;
+        console.log(post, postId, fecha);
         postStructure += `
           <section class='post'>
             <p>${post.inputPost}</p>
-            <p>${post.genere}</p>
+            <p>${post.generePost}</p>
             <button class='post-btn-delete-publication' data-publicationid='${doc.id}'>Eliminar</button>
           </section>
         `;
@@ -169,7 +170,6 @@ export default () => {
       // funcion para eliminar post
       const postRemover = () => {
         const deleteButton = divElementWall.querySelectorAll('.post-btn-delete-publication');
-        // console.log(deleteButton);
         deleteButton.forEach((btn) => {
           btn.addEventListener('click', ({ target: { dataset } }) => {
             deletePublication(dataset.publicationid);
@@ -178,11 +178,11 @@ export default () => {
       };
       postRemover();
     });
-    onReadPublication(querySnapshot);
+    readAllPublications(querySnapshot);
   };
   postsManagement();
 
-  // Se agrega evento click a boton de cerrar sesión
+  // se agrega evento click a boton de cerrar sesión
   const signoutBtn = divElementWall.querySelector('#signout');
   signoutBtn.addEventListener('click', (e) => {
     e.preventDefault();

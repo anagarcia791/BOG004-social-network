@@ -1,7 +1,9 @@
+// se importa funcion signupBtnEvent desde  signup.controller para test
 import { signupBtnEvent } from '../../src/controllers/signup.controller.js';
-
+// se indica mock de funciones de firebase para correr test
 jest.mock('../../src/firebase-init.js');
 
+// se realiza test a la funcion que crea cuenta con correo y contraseña
 describe('signUp Controller', () => {
   it('Creación de usuario con correo y contraseña exitoso', (done) => {
     const email = 'test@gmail.com';

@@ -10,6 +10,8 @@ import {
   onSnapshot,
   deleteDoc,
   doc,
+  serverTimestamp,
+  orderBy,
 } from '../firebase-init.js';
 
 // funcion observador
@@ -37,29 +39,34 @@ export const currentUser = () => {
   return user;
 };
 
+// funcion para crear publicación
+export const createPublication = (inputPost, generePost, uidPost) => {
+  addDoc(collection(db, 'publications'), {
+    inputPost,
+    generePost,
+    uidPost,
+    postCreatedAt: serverTimestamp(),
+  });
+};
+
+// funcion para leer publicación
+export const readPublication = () => {
+  getDocs(collection(db, 'publications'), orderBy('postCreatedAt', 'desc'));
+};
+
+// funcion para leer todas las publicación
+export const readAllPublications = (querySnapshot) => {
+  onSnapshot(collection(db, 'publications'), querySnapshot);
+};
+
+// funcion para eliminar publicación
+export const deletePublication = (id) => {
+  deleteDoc(doc(db, 'publications', id));
+};
+
 // funcion para cerrar sesion
 export const signOutUser = () => {
   const auth = getAuth();
   const signOutEvent = signOut(auth);
   return signOutEvent;
-};
-
-// Función para crear publicación
-export const createPublication = (inputPost, genere) => {
-  addDoc(collection(db, 'publications'), { inputPost, genere });
-};
-
-// Función para leer publicación
-export const readPublication = () => {
-  getDocs(collection(db, 'publications'));
-};
-
-// Función para leer todas las publicación
-export const onReadPublication = (querySnapshot) => {
-  onSnapshot(collection(db, 'publications'), querySnapshot);
-};
-
-// Función para eliminar publicación
-export const deletePublication = (id) => {
-  deleteDoc(doc(db, 'publications', id));
 };
