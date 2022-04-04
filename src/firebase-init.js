@@ -28,6 +28,7 @@ import {
   doc,
   serverTimestamp,
   orderBy,
+  query,
 // eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore.js';
 
@@ -66,6 +67,7 @@ export {
   doc,
   serverTimestamp,
   orderBy,
+  query,
 };
 
 // se declara a google como nuestro proveedor
