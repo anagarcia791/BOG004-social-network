@@ -143,7 +143,6 @@ export default () => {
       } else {
         publicationUrlPhoto = divElementWall.querySelector('.userpic-url').src;
       }
-      // console.log(publicationUrlPhoto, 'Url de la foto');
       const publicationUid = userInfo.uid;
       createPublication(
         publicationContent.value,
@@ -167,16 +166,22 @@ export default () => {
       let postStructure = '';
       snapShopResult.forEach((doc) => {
         const post = doc.data();
-        // const postId = doc.id;
-        // const fecha = doc.postCreatedAt;
-        // console.log(post, postId, fecha);
+        let btnsDeletEdit;
+        if (userInfo.uid === doc.data().uidPost) {
+          btnsDeletEdit = `
+            <button class='post-btn-edit-publication'>Editar</button>
+            <button class='post-btn-delete-publication' data-publicationid='${doc.id}'>Eliminar</button>
+          `;
+        } else {
+          btnsDeletEdit = '';
+        }
         postStructure += `
         <section class='post'>
           <section class='post-container'>
             <section class='post-container-header'>
               <section class='post-container-user'>
-                <picture class='post-container-user-icon' id='${post.uidPost}'>
-                  <i class='fa-solid fa-user' id='userpic'></i>
+                <picture class='post-container-user-prueba'>
+                  <img src='${post.photoUrlPost}' alt='user-prueba'></img>
                 </picture>
                 <p class='post-user-name'>${post.userNamePost}</p>
               </section>
@@ -186,32 +191,12 @@ export default () => {
           </section>
           <section class='post-container-events'>
             <button >LIKE</button>
-              <section class='post-container-btns'>
-                <button class='post-btn-edit-publication'>Editar</button>
-                <button class='post-btn-delete-publication' data-publicationid='${doc.id}'>Eliminar</button>
-              </section>
+              <section class='post-container-btns'>${btnsDeletEdit}</section>
           </section>
         </section>
         `;
       });
       postContainer.innerHTML = postStructure;
-
-      // se agrega foto a los usuarios autenticados con google
-      const catchUserPicHTMLPost = divElementWall.querySelectorAll('.post-container-user-icon');
-      const docsList = snapShopResult.docs;
-      docsList.forEach((doc) => {
-        console.log(userInfo.uid, 'uid con currentUser');
-        console.log(doc.data().uidPost, 'uid con firebase');
-        catchUserPicHTMLPost.forEach((userHTML) => {
-          if (userInfo.uid === doc.data().uidPost && userInfo.uid === userHTML.id) {
-            // eslint-disable-next-line no-param-reassign
-            userHTML.innerHTML = `<img src='${doc.data().photoUrlPost}' alt='user-pic'></img>`;
-            console.log('hizo el cambio de foto');
-          } else {
-            console.log('nope');
-          }
-        });
-      });
 
       // console.log(snapShopResult.docs.length, 'longitud resultado de publicaciones firebase');
       // console.log(snapShopResult.docs[0].data(), 'detalle de publicación 0');
