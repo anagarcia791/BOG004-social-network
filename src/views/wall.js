@@ -29,29 +29,28 @@ export default () => {
         <section class='wall-categ-container' id='wall-categ-container'></section>
     </section>
     <main class='wall-posts'>
-          <form class='modal' id='modal-form'>
-            <section class = 'modal-container'>
-              <section class='modal-container-header'>
-                <h2>Crear Publicación</h2>
-                <section class='modal-container-category'>
-                  <p id='modal-category'>Categoría</p>
-                  <i id='modal-container-close' class='fa-solid fa-circle-xmark'></i>
-                </section>
+        <form class='modal' id='modal-form'>
+          <section class = 'modal-container'>
+            <section class='modal-container-header'>
+              <h2>Crear Publicación</h2>
+              <section class='modal-container-category'>
+                <p id='modal-category'>Categoría</p>
+                <i id='modal-container-close' class='fa-solid fa-circle-xmark'></i>
               </section>
-              <section class='modal-container-user'>
-                <section class='modal-container-icono'>
-                  <i class='fa-solid fa-user' id='userpic'></i>
-                </section>
-                <p class='modal-user-name'>nombre Usuario</p>
-              </section>
-              <section class='modal-text-content'>
-                <textarea type='text' id='input-post' placeholder='Comparte tú evento o canción'  maxlength='200' required></textarea>
-              </section>
-                <button type='submit' class='modal-btn-post-inactive' id='modal-btn-publish'>Publicar</button>
             </section>
-          </form>
-        <section class='wall-posts-container'>
-        </section>
+            <section class='modal-container-user'>
+              <section class='modal-container-user-icon'>
+                <i class='fa-solid fa-user' id='userpic'></i>
+              </section>
+              <p class='modal-user-name'>nombre usuario</p>
+            </section>
+            <section class='modal-text-content'>
+              <textarea type='text' id='input-post' placeholder='Comparte tú evento o canción'  maxlength='200' required></textarea>
+            </section>
+              <button type='submit' class='modal-btn-post-inactive' id='modal-btn-publish'>Publicar</button>
+          </section>
+        </form>
+        <section class='wall-posts-container'></section>
     </main>
   </section>`;
 
@@ -100,13 +99,13 @@ export default () => {
     const categories = divElementWall.querySelectorAll('.wall-categ-button');
     const modalPublication = divElementWall.querySelector('.modal');
     const pCategory = divElementWall.querySelector('#modal-category');
-    const catchUserPicHTMLmodal = divElementWall.querySelector('.modal-container-icono');
+    const catchUserPicHTMLModal = divElementWall.querySelector('.modal-container-user-icon');
     const catchUserEmail = divElementWall.querySelector('.modal-user-name');
     categories.forEach((elementCategory) => {
       elementCategory.addEventListener('click', (e) => {
         e.preventDefault();
         pCategory.innerHTML = elementCategory.value;
-        photoCondition(userInfo, catchUserPicHTMLmodal);
+        photoCondition(userInfo, catchUserPicHTMLModal);
         const userName = userInfo.email;
         const userNameString = userName.toString().split('@');
         catchUserEmail.innerHTML = userNameString[0];
@@ -135,10 +134,16 @@ export default () => {
     const formPublish = divElementWall.querySelector('#modal-form');
     formPublish.addEventListener('submit', (e) => {
       e.preventDefault();
-      const publication = formPublish['input-post'];
+      const publicationContent = formPublish['input-post'];
       const publicationGenere = divElementWall.querySelector('#modal-category');
+      const publicationUserName = divElementWall.querySelector('.modal-user-name');
       const publicationUid = userInfo.uid;
-      createPublication(publication.value, publicationGenere.textContent, publicationUid);
+      createPublication(
+        publicationContent.value,
+        publicationGenere.textContent,
+        publicationUid,
+        publicationUserName.textContent,
+      );
       formPublish.reset();
       modalPublication.classList.remove('modal--show');
     });
@@ -146,7 +151,7 @@ export default () => {
   publish(wallControllerUserInfo);
 
   // funcion para manejar publicaciones
-  const postsManagement = () => {
+  const postsManagement = (userInfo) => {
     const postContainer = divElementWall.querySelector('.wall-posts-container');
     const querySnapshot = readPublication();
     // funcion para leer todas las publicaciones de manera instantanea
@@ -154,18 +159,58 @@ export default () => {
       let postStructure = '';
       snapShopResult.forEach((doc) => {
         const post = doc.data();
-        const postId = doc.id;
-        const fecha = doc.postCreatedAt;
-        console.log(post, postId, fecha);
+        // const postId = doc.id;
+        // const fecha = doc.postCreatedAt;
+        // console.log(post, postId, fecha);
         postStructure += `
-          <section class='post'>
-            <p>${post.inputPost}</p>
-            <p>${post.generePost}</p>
-            <button class='post-btn-delete-publication' data-publicationid='${doc.id}'>Eliminar</button>
+        <section class='post'>
+          <section class='post-container'>
+            <section class='post-container-header'>
+              <section class='post-container-user'>
+                <section class='post-container-user-icon'>
+                  <i class='fa-solid fa-user' id='userpic'></i>
+                </section>
+                <p class='post-user-name'>${post.userNamePost}</p>
+              </section>
+              <p class='post-genere'>${post.generePost}</p>
+            </section>
+            <p class='post-content'>${post.inputPost}</p>
           </section>
+          <section class='post-container-events'>
+            <button >LIKE</button>
+              <section class='post-container-btns'>
+                <button class='post-btn-edit-publication'>Editar</button>
+                <button class='post-btn-delete-publication' data-publicationid='${doc.id}'>Eliminar</button>
+              </section>
+          </section>
+        </section>
         `;
       });
       postContainer.innerHTML = postStructure;
+
+      // se agrega foto a los usuarios autenticados con google
+      const catchUserPicHTMLPost = divElementWall.querySelectorAll('.post-container-user-icon');
+      const docsList = snapShopResult.docs;
+      catchUserPicHTMLPost.forEach((userHTML) => {
+        docsList.forEach((doc) => {
+          // console.log(typeof (userInfo.uid));
+          // console.log(typeof (doc.data().uidPost));
+          console.log(userInfo.uid);
+          console.log(doc.data().uidPost);
+          if (userInfo.uid === doc.data().uidPost) {
+            console.log('nope');
+            photoCondition(userInfo, userHTML);
+          } else {
+            console.log('nope');
+          }
+        });
+        console.log(userHTML);
+      });
+
+      // console.log(snapShopResult.docs[0].data());
+      // console.log(snapShopResult.docs.length);
+      // console.log(snapShopResult.docs[0].data().uidPost);
+      // console.log(snapShopResult.docs[0].data().userNamePost);
 
       // funcion para eliminar post
       const postRemover = () => {
@@ -180,7 +225,7 @@ export default () => {
     });
     readAllPublications(querySnapshot);
   };
-  postsManagement();
+  postsManagement(wallControllerUserInfo);
 
   // se agrega evento click a boton de cerrar sesión
   const signoutBtn = divElementWall.querySelector('#signout');

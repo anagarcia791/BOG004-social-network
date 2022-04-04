@@ -283,7 +283,7 @@ p.log-sig-line span{
 .modal-container-header h2{
     font-size: 1rem;
 }
-.modal-container-icono img{
+.modal-container-user-icon img{
     border-radius: 50%;
     width: 50px;
 }
@@ -332,8 +332,7 @@ p.log-sig-line span{
 }
 /* FIN ventana Modal */
 
-/* Inicio Estilos Post */
-
+/* INICIO Estilos Post */
 .wall-posts-container{
     width: 100vw;
     display: flex;
@@ -343,19 +342,30 @@ p.log-sig-line span{
     gap: 30px;
 }
 .post {
-    border: 1px solid var(--btnblue3);
     width: 90%;
-    padding: 20px;
+    /* padding: 20px; */
 }
-
-
-
-
-
-
-
-
-
+.post-container{
+    border: 1px solid var(--btnblue3);
+}
+.post-container-header{
+    display: flex;  
+    justify-content: space-between;
+}
+.post-container-user{
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+}
+.post-container-user img{
+    border-radius: 50%;
+    width: 30px;
+}
+.post-container-events{
+    display: flex;    
+    justify-content: space-between;
+}
+/* FIN Estilos Post */
 
 /* INICIO notification */
 .notification{
