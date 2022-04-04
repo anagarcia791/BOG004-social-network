@@ -44,12 +44,13 @@ export const currentUser = () => {
 const eventPublications = collection(db, 'publications');
 
 // funcion para crear publicación
-export const createPublication = (inputPost, generePost, uidPost, userNamePost) => {
+export const createPublication = (inputPost, generePost, uidPost, userNamePost, photoUrlPost) => {
   addDoc(eventPublications, {
     inputPost,
     generePost,
     uidPost,
     userNamePost,
+    photoUrlPost,
     postCreatedAt: serverTimestamp(),
   });
 };

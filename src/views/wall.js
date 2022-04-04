@@ -65,7 +65,7 @@ export default () => {
     if (userInfo === null || userInfo.photoURL === null) {
       userPicHTML.innerHTML = '<i class=\'fa-solid fa-user\' id=\'userpic\'></i>';
     } else {
-      userPicHTML.innerHTML = `<img src='${userInfo.photoURL}' alt='user-pic'></img>`;
+      userPicHTML.innerHTML = `<img src='${userInfo.photoURL}' class='userpic-url' alt='user-pic'></img>`;
     }
   };
 
@@ -137,12 +137,15 @@ export default () => {
       const publicationContent = formPublish['input-post'];
       const publicationGenere = divElementWall.querySelector('#modal-category');
       const publicationUserName = divElementWall.querySelector('.modal-user-name');
+      const publicationUrlPhoto = divElementWall.querySelector('.userpic-url').src;
+      // console.log(publicationUrlPhoto, 'Url de la foto');
       const publicationUid = userInfo.uid;
       createPublication(
         publicationContent.value,
         publicationGenere.textContent,
         publicationUid,
         publicationUserName.textContent,
+        publicationUrlPhoto,
       );
       formPublish.reset();
       modalPublication.classList.remove('modal--show');
@@ -167,8 +170,11 @@ export default () => {
           <section class='post-container'>
             <section class='post-container-header'>
               <section class='post-container-user'>
-                <section class='post-container-user-icon'>
+                <section class='post-container-user-icon' id='${post.uidPost}'>
                   <i class='fa-solid fa-user' id='userpic'></i>
+                </section>
+                <section class='post-container-user-prueba'>
+                  <img src='${post.photoUrlPost}' alt='user-prueba'></img>
                 </section>
                 <p class='post-user-name'>${post.userNamePost}</p>
               </section>
@@ -191,26 +197,24 @@ export default () => {
       // se agrega foto a los usuarios autenticados con google
       const catchUserPicHTMLPost = divElementWall.querySelectorAll('.post-container-user-icon');
       const docsList = snapShopResult.docs;
-      catchUserPicHTMLPost.forEach((userHTML) => {
-        docsList.forEach((doc) => {
-          // console.log(typeof (userInfo.uid));
-          // console.log(typeof (doc.data().uidPost));
-          console.log(userInfo.uid);
-          console.log(doc.data().uidPost);
-          if (userInfo.uid === doc.data().uidPost) {
-            console.log('nope');
+      docsList.forEach((doc) => {
+        console.log(userInfo.uid, 'uid con currentUser');
+        console.log(doc.data().uidPost, 'uid con firebase');
+        catchUserPicHTMLPost.forEach((userHTML) => {
+          // console.log(userHTML.id, 'id HTML');
+          if (userInfo.uid === doc.data().uidPost && userInfo.uid === userHTML.id) {
             photoCondition(userInfo, userHTML);
+            console.log('hizo el cambio de foto');
           } else {
             console.log('nope');
           }
         });
-        console.log(userHTML);
       });
 
-      // console.log(snapShopResult.docs[0].data());
-      // console.log(snapShopResult.docs.length);
-      // console.log(snapShopResult.docs[0].data().uidPost);
-      // console.log(snapShopResult.docs[0].data().userNamePost);
+      // console.log(snapShopResult.docs.length, 'longitud resultado de publicaciones firebase');
+      // console.log(snapShopResult.docs[0].data(), 'detalle de publicación 0');
+      // console.log(snapShopResult.docs[0].data().uidPost, 'detalle de publicación 0');
+      // console.log(snapShopResult.docs[0].data().userNamePost, 'detalle de publicación 0');
 
       // funcion para eliminar post
       const postRemover = () => {
