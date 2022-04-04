@@ -39,9 +39,9 @@ export default () => {
               </section>
             </section>
             <section class='modal-container-user'>
-              <section class='modal-container-user-icon'>
+              <picture class='modal-container-user-icon'>
                 <i class='fa-solid fa-user' id='userpic'></i>
-              </section>
+              </picture>
               <p class='modal-user-name'>nombre usuario</p>
             </section>
             <section class='modal-text-content'>
@@ -63,7 +63,7 @@ export default () => {
   const photoCondition = (userInfo, catchUserPicHTML) => {
     const userPicHTML = catchUserPicHTML;
     if (userInfo === null || userInfo.photoURL === null) {
-      userPicHTML.innerHTML = '<i class=\'fa-solid fa-user\' id=\'userpic\'></i>';
+      userPicHTML.innerHTML = '<i class=\'fa-solid fa-user userpic-url\' id=\'userpic\'></i>';
     } else {
       userPicHTML.innerHTML = `<img src='${userInfo.photoURL}' class='userpic-url' alt='user-pic'></img>`;
     }
@@ -137,7 +137,12 @@ export default () => {
       const publicationContent = formPublish['input-post'];
       const publicationGenere = divElementWall.querySelector('#modal-category');
       const publicationUserName = divElementWall.querySelector('.modal-user-name');
-      const publicationUrlPhoto = divElementWall.querySelector('.userpic-url').src;
+      let publicationUrlPhoto;
+      if (divElementWall.querySelector('.userpic-url').src === undefined) {
+        publicationUrlPhoto = 'https://cdn-icons-png.flaticon.com/512/709/709722.png';
+      } else {
+        publicationUrlPhoto = divElementWall.querySelector('.userpic-url').src;
+      }
       // console.log(publicationUrlPhoto, 'Url de la foto');
       const publicationUid = userInfo.uid;
       createPublication(
@@ -170,12 +175,9 @@ export default () => {
           <section class='post-container'>
             <section class='post-container-header'>
               <section class='post-container-user'>
-                <section class='post-container-user-icon' id='${post.uidPost}'>
+                <picture class='post-container-user-icon' id='${post.uidPost}'>
                   <i class='fa-solid fa-user' id='userpic'></i>
-                </section>
-                <section class='post-container-user-prueba'>
-                  <img src='${post.photoUrlPost}' alt='user-prueba'></img>
-                </section>
+                </picture>
                 <p class='post-user-name'>${post.userNamePost}</p>
               </section>
               <p class='post-genere'>${post.generePost}</p>
@@ -201,9 +203,9 @@ export default () => {
         console.log(userInfo.uid, 'uid con currentUser');
         console.log(doc.data().uidPost, 'uid con firebase');
         catchUserPicHTMLPost.forEach((userHTML) => {
-          // console.log(userHTML.id, 'id HTML');
           if (userInfo.uid === doc.data().uidPost && userInfo.uid === userHTML.id) {
-            photoCondition(userInfo, userHTML);
+            // eslint-disable-next-line no-param-reassign
+            userHTML.innerHTML = `<img src='${doc.data().photoUrlPost}' alt='user-pic'></img>`;
             console.log('hizo el cambio de foto');
           } else {
             console.log('nope');
