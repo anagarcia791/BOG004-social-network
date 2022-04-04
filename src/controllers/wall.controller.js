@@ -12,6 +12,7 @@ import {
   doc,
   serverTimestamp,
   orderBy,
+  query,
 } from '../firebase-init.js';
 
 // funcion observador
@@ -39,29 +40,36 @@ export const currentUser = () => {
   return user;
 };
 
+// creacion de db
+const eventPublications = collection(db, 'publications');
+
 // funcion para crear publicación
-export const createPublication = (inputPost, generePost, uidPost) => {
-  addDoc(collection(db, 'publications'), {
+export const createPublication = (inputPost, generePost, uidPost, userNamePost) => {
+  addDoc(eventPublications, {
     inputPost,
     generePost,
     uidPost,
+    userNamePost,
     postCreatedAt: serverTimestamp(),
   });
 };
 
 // funcion para leer publicación
 export const readPublication = () => {
-  getDocs(collection(db, 'publications'), orderBy('postCreatedAt', 'desc'));
+  getDocs(eventPublications);
 };
+
+// consulta de publicaciones de manera ordenada
+const sortedQuery = query(eventPublications, orderBy('postCreatedAt', 'desc'));
 
 // funcion para leer todas las publicación
 export const readAllPublications = (querySnapshot) => {
-  onSnapshot(collection(db, 'publications'), querySnapshot);
+  onSnapshot(sortedQuery, eventPublications, querySnapshot);
 };
 
 // funcion para eliminar publicación
 export const deletePublication = (id) => {
-  deleteDoc(doc(db, 'publications', id));
+  deleteDoc(doc(eventPublications, id));
 };
 
 // funcion para cerrar sesion
