@@ -6,6 +6,7 @@ import {
   readPublication,
   readAllPublications,
   deletePublication,
+  getPublication,
 } from '../controllers/wall.controller.js';
 import { showNotification } from '../controllers/alerts.controllers.js';
 
@@ -24,9 +25,11 @@ export default () => {
             </section>
         </nav>
     </header>
-    <section class='wall-categories'>
+    <section class='wall-categories container-slider'>
         <h2 class='wall-categ-title'>Publicar</h2>
-        <section class='wall-categ-container' id='wall-categ-container'></section>
+        <section class='wall-categ-container slider' id='wall-categ-container'></section>
+        <div><i class="fa-solid fa-caret-left slider-btn slider-btn--left"></i></div>
+        <div><i class="fa-solid fa-caret-right slider-btn slider-btn--right"></i></div>
     </section>
     <main class='wall-posts'>
         <form class='modal' id='modal-form'>
@@ -88,7 +91,7 @@ export default () => {
     const musicCategoriesSec = divElementWall.querySelector('#wall-categ-container');
     let musicValues = '';
     mCategories.forEach((value, index) => {
-      musicValues += `<button type='button' class='wall-categ-button' id='${value}${index}' value='${value}'>${value}</button>`;
+      musicValues += `<button type='button' class='wall-categ-button slider-section' id='${value}${index}' value='${value}'>${value}</button>`;
     });
     musicCategoriesSec.innerHTML = musicValues;
   };
@@ -169,7 +172,7 @@ export default () => {
         let btnsDeletEdit;
         if (userInfo.uid === doc.data().uidPost) {
           btnsDeletEdit = `
-            <button class='post-btn-edit-publication'>Editar</button>
+            <button class='post-btn-edit-publication' data-publicationid='${doc.id}'>Editar</button>
             <button class='post-btn-delete-publication' data-publicationid='${doc.id}'>Eliminar</button>
           `;
         } else {
@@ -213,6 +216,19 @@ export default () => {
         });
       };
       postRemover();
+
+      // Función para editar post
+      const postEdit = () => {
+        const editButton = divElementWall.querySelectorAll('.post-btn-edit-publication');
+        editButton.forEach((btn) => {
+          btn.addEventListener('click', async (e) => {
+            const docEdit = await getPublication(e.target.dataset.publicationid);
+            const justOnePost = docEdit.data();
+            console.log(justOnePost, 'soy respuesta de getPublication');
+          });
+        });
+      };
+      postEdit();
     });
     readAllPublications(querySnapshot);
   };

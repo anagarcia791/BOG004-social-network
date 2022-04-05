@@ -7,6 +7,7 @@ import {
   db,
   addDoc,
   getDocs,
+  getDoc,
   onSnapshot,
   deleteDoc,
   doc,
@@ -71,6 +72,14 @@ export const readAllPublications = (querySnapshot) => {
 // funcion para eliminar publicación
 export const deletePublication = (id) => {
   deleteDoc(doc(eventPublications, id));
+};
+
+// funcion para editar publicación
+export const getPublication = (id) => {
+  console.log(id, 'soy id para editar desde el wallController');
+  const docRef = doc(db, 'publications', id);
+  const docSnap = getDoc(docRef);
+  return docSnap;
 };
 
 // funcion para cerrar sesion
