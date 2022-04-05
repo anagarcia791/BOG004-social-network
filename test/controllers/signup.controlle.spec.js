@@ -1,5 +1,6 @@
 // se importa funcion signupBtnEvent desde  signup.controller para test
-import { signupBtnEvent } from '../../src/controllers/signup.controller.js';
+// import { signupBtnEvent } from '../../src/controllers/signup.controller.js';
+import { createUserWithEmailAndPassword } from '../../src/firebase-init.js';
 // se indica mock de funciones de firebase para correr test
 jest.mock('../../src/firebase-init.js');
 
@@ -8,9 +9,14 @@ describe('signUp Controller', () => {
   it('Creación de usuario con correo y contraseña exitoso', (done) => {
     const email = 'test@gmail.com';
     const password = 'test123';
-    expect(typeof signupBtnEvent(email, password)).toBe('object');
-    console.log(signupBtnEvent(email, password), 'Exitoso');
+    // expect(typeof signupBtnEvent(email, password)).toBe('object');
+    // console.log(signupBtnEvent(email, password), 'Exitoso');
+    signupBtnEvent(email, password)
     done();
+    // createUserWithEmailAndPassword(email, password).catch((error) => {
+    //   expect(error.code).toBe('auth/email-already-in-use');
+    //   done();
+    // });
   });
 });
 

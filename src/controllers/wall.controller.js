@@ -56,15 +56,15 @@ export const createPublication = (inputPost, generePost, uidPost, userNamePost, 
   });
 };
 
-// funcion para leer publicación
-export const readPublication = () => {
+// funcion para leer publicaciones
+export const readPublications = () => {
   getDocs(eventPublications);
 };
 
 // consulta de publicaciones de manera ordenada
 const sortedQuery = query(eventPublications, orderBy('postCreatedAt', 'desc'));
 
-// funcion para leer todas las publicación
+// funcion para leer todas las publicaciones de manera instantanea y actualizada
 export const readAllPublications = (querySnapshot) => {
   onSnapshot(sortedQuery, eventPublications, querySnapshot);
 };

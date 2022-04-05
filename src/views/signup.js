@@ -2,6 +2,31 @@
 import { signupBtnEvent, authenticatorGoogleEvent } from '../controllers/signup.controller.js';
 import { showNotification } from '../controllers/alerts.controllers.js';
 
+export const logicaRegistro = (signupEmail, signupPassword, signupSecondPassword) => {
+  const isUserCreated = {
+    status: false,
+    errorCode: '',
+  };
+  if (signupPassword === signupSecondPassword) {
+    return signupBtnEvent(signupEmail, signupPassword)
+      .then(() => {
+        window.sessionStorage.setItem('islogged', 'true');
+        isUserCreated.status = true;
+        window.location.hash = '#/wall'; // se cambia ventana cuando crea cuenta
+        return isUserCreated;
+      })
+      .catch((error) => {
+        console.log(error);
+        isUserCreated.status = false;
+        isUserCreated.errorCode = error.code;
+        const errorMessage = error.message;
+        showNotification(errorMessage);
+      });
+  }
+  showNotification('verificar contraseñas');
+  return Promise.reject();
+};
+
 // se crea template de registro
 export default () => {
   const viewSignup = `
@@ -38,28 +63,12 @@ export default () => {
     const signupEmail = divElementSignup.querySelector('#email').value;
     const signupPassword = divElementSignup.querySelector('#pass').value;
     const signupSecondPassword = divElementSignup.querySelector('#conf-pass').value;
-    const isUserCreated = {
-      status: false,
-      errorCode: '',
-    };
-    if (signupPassword === signupSecondPassword) {
-      signupBtnEvent(signupEmail, signupPassword)
-        .then(() => {
-          window.sessionStorage.setItem('islogged', 'true');
-          isUserCreated.status = true;
-          window.location.hash = '#/wall'; // se cambia ventana cuando crea cuenta
-        })
-        .catch((error) => {
-          isUserCreated.status = false;
-          isUserCreated.errorCode = error.code;
-          const errorMessage = error.message;
-          showNotification(errorMessage);
-        });
-    } else {
-      showNotification('verificar contraseñas');
-    }
-    console.log(isUserCreated, 'hola soy isUserCreated desde signup');
-    return isUserCreated;
+    logicaRegistro(signupEmail, signupPassword, signupSecondPassword)
+      .then((isUserCreated) => {
+        console.log(isUserCreated, 'hola soy isUserCreated desde signup');
+      }).catch((error) => {
+        console.log(error, 'hola soy ERROR isUserCreated desde signup');
+      });
   });
 
   // se agrega evento click a imagen para autenticar usuario con google

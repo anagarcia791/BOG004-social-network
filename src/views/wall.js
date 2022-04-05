@@ -3,10 +3,10 @@ import {
   currentUser,
   signOutUser,
   createPublication,
-  readPublication,
   readAllPublications,
   deletePublication,
   getPublication,
+  readPublications,
 } from '../controllers/wall.controller.js';
 import { showNotification } from '../controllers/alerts.controllers.js';
 
@@ -163,7 +163,7 @@ export default () => {
   // funcion para manejar publicaciones
   const postsManagement = (userInfo) => {
     const postContainer = divElementWall.querySelector('.wall-posts-container');
-    const querySnapshot = readPublication();
+    const querySnapshot = readPublications();
     // funcion para leer todas las publicaciones de manera instantanea
     readAllPublications((snapShopResult) => {
       let postStructure = '';
@@ -183,8 +183,8 @@ export default () => {
           <section class='post-container'>
             <section class='post-container-header'>
               <section class='post-container-user'>
-                <picture class='post-container-user-prueba'>
-                  <img src='${post.photoUrlPost}' alt='user-prueba'></img>
+                <picture class='post-container-user-picture'>
+                  <img src='${post.photoUrlPost}' alt='user-picture'></img>
                 </picture>
                 <p class='post-user-name'>${post.userNamePost}</p>
               </section>
@@ -201,10 +201,10 @@ export default () => {
       });
       postContainer.innerHTML = postStructure;
 
-      // console.log(snapShopResult.docs.length, 'longitud resultado de publicaciones firebase');
-      // console.log(snapShopResult.docs[0].data(), 'detalle de publicación 0');
-      // console.log(snapShopResult.docs[0].data().uidPost, 'detalle de publicación 0');
-      // console.log(snapShopResult.docs[0].data().userNamePost, 'detalle de publicación 0');
+      console.log(snapShopResult.docs.length, 'longitud resultado de publicaciones firebase');
+      console.log(snapShopResult.docs[0].data(), 'detalle de publicación 0');
+      console.log(snapShopResult.docs[0].data().uidPost, 'detalle de publicación 0');
+      console.log(snapShopResult.docs[0].data().userNamePost, 'detalle de publicación 0');
 
       // funcion para eliminar post
       const postRemover = () => {

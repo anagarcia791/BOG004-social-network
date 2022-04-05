@@ -18,9 +18,9 @@ export const createUserWithEmailAndPassword = jest.fn((email, password) => {
   };
   let promiseResult;
   if (email === 'ana1@gmail.com' && password === 'ana12345') {
-    promiseResult = Promise.reject(error);
-  } else {
     promiseResult = Promise.resolve(userCredentials);
+  } else {
+    promiseResult = Promise.reject(error);
   }
   return promiseResult;
 });
