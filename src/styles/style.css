@@ -336,7 +336,7 @@ p.log-sig-line span{
     justify-content: space-between;
     align-items: center;
 }
-#input-post{
+.inp-post-modal-post{
     width: 100%;
     height: 100%;
     border: none;
@@ -344,15 +344,18 @@ p.log-sig-line span{
     font-size: 1rem;
     background-color: var(--textwhite);
 }
-#input-post::placeholder{
+.inp-post-modal-post::placeholder{
     font-size: .8rem;
     font-family: 'Ubuntu', sans-serif ;
 }
-#input-post:focus{
+.inp-post-modal-post:focus{
     outline: none;
 }
-#input-post:active{
+.inp-post-modal-post:active{
     outline: none;
+}
+textarea {
+    resize: none;
 }
 .modal-btn-post-inactive{
     border: none;
@@ -397,6 +400,9 @@ p.log-sig-line span{
 .post-container-events{
     display: flex;    
     justify-content: space-between;
+}
+.hidenBtn{
+    display: none;
 }
 /* FIN Estilos Post */
 

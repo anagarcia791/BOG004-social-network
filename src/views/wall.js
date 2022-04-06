@@ -7,8 +7,40 @@ import {
   deletePublication,
   getPublication,
   readPublications,
+  updatePublication,
 } from '../controllers/wall.controller.js';
 import { showNotification } from '../controllers/alerts.controllers.js';
+
+// funcion para crear publicación
+export const publish = (userInfo, divElementWall) => {
+  const modalPublication = divElementWall.querySelector('.modal');
+  const formPublish = divElementWall.querySelector('#modal-form');
+  formPublish.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const publicationContent = formPublish['input-post'];
+    const publicationGenere = divElementWall.querySelector('#modal-category');
+    const publicationUid = userInfo.uid;
+    const publicationUserName = divElementWall.querySelector('.modal-user-name');
+    let publicationUrlPhoto;
+    if (divElementWall.querySelector('.userpic-url').src === undefined) {
+      publicationUrlPhoto = 'https://cdn-icons-png.flaticon.com/512/709/709722.png';
+    } else {
+      publicationUrlPhoto = divElementWall.querySelector('.userpic-url').src;
+    }
+
+    createPublication(
+      publicationContent.value,
+      publicationGenere.textContent,
+      publicationUid,
+      publicationUserName.textContent,
+      publicationUrlPhoto,
+    );
+
+    formPublish.reset();
+    modalPublication.classList.remove('modal--show');
+  });
+};
+// FIN funcion para crear publicación
 
 // se crea template de wall
 export default () => {
@@ -48,7 +80,7 @@ export default () => {
               <p class='modal-user-name'>nombre usuario</p>
             </section>
             <section class='modal-text-content'>
-              <textarea type='text' id='input-post' placeholder='Comparte tú evento o canción'  maxlength='200' required></textarea>
+              <textarea type='text' id='input-post' class='inp-post-modal-post' placeholder='Comparte tú evento o canción'  maxlength='200' required></textarea>
             </section>
               <button type='submit' class='modal-btn-post-inactive' id='modal-btn-publish'>Publicar</button>
           </section>
@@ -131,34 +163,8 @@ export default () => {
   };
   closeModal();
 
-  // funcion para crear publicación
-  const publish = (userInfo) => {
-    const modalPublication = divElementWall.querySelector('.modal');
-    const formPublish = divElementWall.querySelector('#modal-form');
-    formPublish.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const publicationContent = formPublish['input-post'];
-      const publicationGenere = divElementWall.querySelector('#modal-category');
-      const publicationUserName = divElementWall.querySelector('.modal-user-name');
-      let publicationUrlPhoto;
-      if (divElementWall.querySelector('.userpic-url').src === undefined) {
-        publicationUrlPhoto = 'https://cdn-icons-png.flaticon.com/512/709/709722.png';
-      } else {
-        publicationUrlPhoto = divElementWall.querySelector('.userpic-url').src;
-      }
-      const publicationUid = userInfo.uid;
-      createPublication(
-        publicationContent.value,
-        publicationGenere.textContent,
-        publicationUid,
-        publicationUserName.textContent,
-        publicationUrlPhoto,
-      );
-      formPublish.reset();
-      modalPublication.classList.remove('modal--show');
-    });
-  };
-  publish(wallControllerUserInfo);
+  // se invoca funcion para crear publicación
+  publish(wallControllerUserInfo, divElementWall);
 
   // funcion para manejar publicaciones
   const postsManagement = (userInfo) => {
@@ -173,13 +179,14 @@ export default () => {
         if (userInfo.uid === doc.data().uidPost) {
           btnsDeletEdit = `
             <button class='post-btn-edit-publication' data-publicationid='${doc.id}'>Editar</button>
+            <button class='post-btn-save-publication hidenBtn' data-publicationid='${doc.id}'>Guardar</button>
             <button class='post-btn-delete-publication' data-publicationid='${doc.id}'>Eliminar</button>
           `;
         } else {
           btnsDeletEdit = '';
         }
         postStructure += `
-        <section class='post'>
+        <section class='post' id='${doc.id}'>
           <section class='post-container'>
             <section class='post-container-header'>
               <section class='post-container-user'>
@@ -190,7 +197,7 @@ export default () => {
               </section>
               <p class='post-genere'>${post.generePost}</p>
             </section>
-            <p class='post-content'>${post.inputPost}</p>
+            <textarea type='text' class='post-content inp-post-modal-post' readonly id='${doc.id}'>${post.inputPost}</textarea>
           </section>
           <section class='post-container-events'>
             <button >LIKE</button>
@@ -201,38 +208,68 @@ export default () => {
       });
       postContainer.innerHTML = postStructure;
 
-      console.log(snapShopResult.docs.length, 'longitud resultado de publicaciones firebase');
-      console.log(snapShopResult.docs[0].data(), 'detalle de publicación 0');
-      console.log(snapShopResult.docs[0].data().uidPost, 'detalle de publicación 0');
-      console.log(snapShopResult.docs[0].data().userNamePost, 'detalle de publicación 0');
-
       // funcion para eliminar post
       const postRemover = () => {
         const deleteButton = divElementWall.querySelectorAll('.post-btn-delete-publication');
-        deleteButton.forEach((btn) => {
-          btn.addEventListener('click', ({ target: { dataset } }) => {
+        deleteButton.forEach((btnDelete) => {
+          btnDelete.addEventListener('click', ({ target: { dataset } }) => {
             deletePublication(dataset.publicationid);
           });
         });
       };
       postRemover();
+      // FIN funcion para eliminar post
 
-      // Función para editar post
+      // funcion para editar post
       const postEdit = () => {
+        const editTextContent = divElementWall.querySelectorAll('.post-content');
         const editButton = divElementWall.querySelectorAll('.post-btn-edit-publication');
-        editButton.forEach((btn) => {
-          btn.addEventListener('click', async (e) => {
-            const docEdit = await getPublication(e.target.dataset.publicationid);
-            const justOnePost = docEdit.data();
-            console.log(justOnePost, 'soy respuesta de getPublication');
+        const saveButton = divElementWall.querySelectorAll('.post-btn-save-publication');
+        editButton.forEach((btnEdit, index) => {
+          btnEdit.addEventListener('click', (e) => {
+            const buttonClicked = e.target.dataset.publicationid;
+            getPublication(buttonClicked)
+              .then(() => {
+                editTextContent.forEach((textArea) => {
+                  if (textArea.id === buttonClicked) {
+                    textArea.removeAttribute('readonly');
+                    btnEdit.classList.add('hidenBtn');
+                    saveButton[index].classList.remove('hidenBtn');
+                  }
+                });
+              }).catch((error) => {
+                showNotification(error);
+              });
+          });
+        });
+        saveButton.forEach((btnSave, index) => {
+          btnSave.addEventListener('click', (e) => {
+            const buttonClicked = e.target.dataset.publicationid;
+            getPublication(buttonClicked)
+              .then(() => {
+                editTextContent.forEach((textArea) => {
+                  if (textArea.id === buttonClicked) {
+                    textArea.setAttribute('readonly', true);
+                    btnSave.classList.add('hidenBtn');
+                    editButton[index].classList.remove('hidenBtn');
+                    const inputPost = textArea.value;
+                    updatePublication(textArea.id, { inputPost });
+                  }
+                });
+              }).catch((error) => {
+                showNotification(error);
+              });
           });
         });
       };
       postEdit();
+      // FIN funcion para editar post
     });
     readAllPublications(querySnapshot);
+    // FIN funcion para leer todas las publicaciones de manera instantanea
   };
   postsManagement(wallControllerUserInfo);
+  // FIN funcion para manejar publicaciones
 
   // se agrega evento click a boton de cerrar sesión
   const signoutBtn = divElementWall.querySelector('#signout');

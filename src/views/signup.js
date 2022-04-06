@@ -2,7 +2,7 @@
 import { signupBtnEvent, authenticatorGoogleEvent } from '../controllers/signup.controller.js';
 import { showNotification } from '../controllers/alerts.controllers.js';
 
-export const logicaRegistro = (signupEmail, signupPassword, signupSecondPassword) => {
+export const signupLogic = (signupEmail, signupPassword, signupSecondPassword) => {
   const isUserCreated = {
     status: false,
     errorCode: '',
@@ -16,11 +16,12 @@ export const logicaRegistro = (signupEmail, signupPassword, signupSecondPassword
         return isUserCreated;
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error, 'soy error de firebase linea 19 sign');
         isUserCreated.status = false;
         isUserCreated.errorCode = error.code;
         const errorMessage = error.message;
         showNotification(errorMessage);
+        return isUserCreated;
       });
   }
   showNotification('verificar contraseñas');
@@ -63,11 +64,11 @@ export default () => {
     const signupEmail = divElementSignup.querySelector('#email').value;
     const signupPassword = divElementSignup.querySelector('#pass').value;
     const signupSecondPassword = divElementSignup.querySelector('#conf-pass').value;
-    logicaRegistro(signupEmail, signupPassword, signupSecondPassword)
+    signupLogic(signupEmail, signupPassword, signupSecondPassword)
       .then((isUserCreated) => {
-        console.log(isUserCreated, 'hola soy isUserCreated desde signup');
-      }).catch((error) => {
-        console.log(error, 'hola soy ERROR isUserCreated desde signup');
+        console.log(isUserCreated, 'hola soy isUserCreated desde signup linea 69');
+      }).catch((isUserCreated) => {
+        console.log(isUserCreated, 'hola soy ERROR isUserCreated desde signup linea 71');
       });
   });
 

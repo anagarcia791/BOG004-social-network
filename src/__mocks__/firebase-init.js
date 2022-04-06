@@ -14,15 +14,16 @@ export const createUserWithEmailAndPassword = jest.fn((email, password) => {
   };
   const error = {
     status: false,
-    code: 'auth/email-already-in-use',
+    code: 'ERROR USER YA TIENE CUENTA auth/email-already-in-use',
   };
-  let promiseResult;
-  if (email === 'ana1@gmail.com' && password === 'ana12345') {
-    promiseResult = Promise.resolve(userCredentials);
-  } else {
-    promiseResult = Promise.reject(error);
-  }
-  return promiseResult;
+
+  return new Promise((resolve, reject) => {
+    if (email === 'ana1@gmail.com' && password === 'ana123456') {
+      reject(error.code);
+    } else {
+      resolve(userCredentials.user);
+    }
+  });
 });
 
 // funciones de Firestore
@@ -33,3 +34,6 @@ export const getDocs = () => Promise.resolve({});
 export const onSnapshot = () => Promise.resolve({});
 export const deleteDoc = () => Promise.resolve({});
 export const doc = () => Promise.resolve({});
+export const query = () => Promise.resolve({});
+export const orderBy = () => Promise.resolve({});
+export const updateDoc = () => Promise.resolve({});

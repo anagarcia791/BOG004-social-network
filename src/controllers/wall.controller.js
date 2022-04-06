@@ -14,6 +14,7 @@ import {
   serverTimestamp,
   orderBy,
   query,
+  updateDoc,
 } from '../firebase-init.js';
 
 // funcion observador
@@ -74,12 +75,16 @@ export const deletePublication = (id) => {
   deleteDoc(doc(eventPublications, id));
 };
 
-// funcion para editar publicación
+// funcion para acceder a una publicación
 export const getPublication = (id) => {
-  console.log(id, 'soy id para editar desde el wallController');
   const docRef = doc(db, 'publications', id);
   const docSnap = getDoc(docRef);
   return docSnap;
+};
+
+// funcion para actualizar una publicación
+export const updatePublication = (id, inputPostUpdated) => {
+  updateDoc(doc(db, 'publications', id), inputPostUpdated);
 };
 
 // funcion para cerrar sesion
