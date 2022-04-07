@@ -28,12 +28,15 @@ export const publish = (userInfo, divElementWall) => {
       publicationUrlPhoto = divElementWall.querySelector('.userpic-url').src;
     }
 
+    const userLikes = ['id1'];
+
     createPublication(
       publicationContent.value,
       publicationGenere.textContent,
       publicationUid,
       publicationUserName.textContent,
       publicationUrlPhoto,
+      userLikes,
     );
 
     formPublish.reset();
@@ -200,8 +203,9 @@ export default () => {
             <textarea type='text' class='post-content inp-post-modal-post' readonly id='${doc.id}'>${post.inputPost}</textarea>
           </section>
           <section class='post-container-events'>
-            <button >LIKE</button>
-              <section class='post-container-btns'>${btnsDeletEdit}</section>
+            <button class='post-like' id='${doc.id}'><i class="fa-regular fa-heart"></i></button>
+            <p class='post-user-like'>${post.likePost.length}</p>
+            <section class='post-container-btns'>${btnsDeletEdit}</section>
           </section>
         </section>
         `;
@@ -213,6 +217,7 @@ export default () => {
         const deleteButton = divElementWall.querySelectorAll('.post-btn-delete-publication');
         deleteButton.forEach((btnDelete) => {
           btnDelete.addEventListener('click', ({ target: { dataset } }) => {
+            console.log(dataset.publicationid, 'soy id para eliminar post');
             deletePublication(dataset.publicationid);
           });
         });
@@ -264,6 +269,27 @@ export default () => {
       };
       postEdit();
       // FIN funcion para editar post
+
+      // funcion para dar like al post
+      const postLike = () => {
+        const likeButton = divElementWall.querySelectorAll('.post-like');
+        likeButton.forEach((like) => {
+          like.addEventListener('click', () => {
+            const buttonliked = like.id;
+            getPublication(buttonliked)
+              .then((docLike) => {
+                const justOnePost = docLike.data();
+                console.log(justOnePost, 'soy respuesta de getPublication');
+                const userlikes = justOnePost.likePost;
+                console.log(userlikes, 'soy likes');
+              }).catch((error) => {
+                showNotification(error);
+              });
+          });
+        });
+      };
+      postLike();
+      // FIN funcion para dar like al post
     });
     readAllPublications(querySnapshot);
     // FIN funcion para leer todas las publicaciones de manera instantanea
