@@ -9,6 +9,7 @@ import {
   readPublications,
   updatePublication,
   addLikePost,
+  removeLikePost,
 } from '../controllers/wall.controller.js';
 import { showNotification } from '../controllers/alerts.controllers.js';
 
@@ -28,8 +29,7 @@ export const publish = (userInfo, divElementWall) => {
     } else {
       publicationUrlPhoto = divElementWall.querySelector('.userpic-url').src;
     }
-
-    const userLikes = [];
+    const userLikes = []; // se declara array vacio para likes
 
     createPublication(
       publicationContent.value,
@@ -96,7 +96,6 @@ export default () => {
   const divElementWall = document.createElement('div');
   divElementWall.innerHTML = wall;
   const wallControllerUserInfo = currentUser();
-  console.log(wallControllerUserInfo, 'Info usuario en muro');
 
   // funcion para verificar estado de url de foto
   const photoCondition = (userInfo, catchUserPicHTML) => {
@@ -272,6 +271,7 @@ export default () => {
 
       // funcion para dar like al post
       const postLike = () => {
+        const uidCurrentUser = userInfo.uid;
         const likeButton = divElementWall.querySelectorAll('.post-like');
         likeButton.forEach((like) => {
           like.addEventListener('click', () => {
@@ -279,14 +279,10 @@ export default () => {
             getPublication(buttonliked)
               .then((docLike) => {
                 const justOnePost = docLike.data();
-                console.log(justOnePost);
                 const userlikes = justOnePost.likePost;
-                console.log(userlikes, 'soy likes');
-                if (userlikes.includes(userInfo.uid)) {
-                  console.log('si incluye');
+                if (userlikes.includes(uidCurrentUser)) {
+                  removeLikePost(buttonliked, uidCurrentUser);
                 } else {
-                  console.log('no incluye');
-                  const uidCurrentUser = userInfo.uid;
                   addLikePost(buttonliked, uidCurrentUser);
                 }
               }).catch((error) => {

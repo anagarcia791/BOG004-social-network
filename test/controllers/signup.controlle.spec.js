@@ -9,7 +9,7 @@ describe('signUp Controller', () => {
   it('Creación de usuario con correo y contraseña exitoso', (done) => {
     const email = 'test@gmail.com';
     const password = 'test123';
-    console.log(signupBtnEvent(email, password), 'Exitoso');
+    // console.log(signupBtnEvent(email, password), 'Exitoso');
     signupBtnEvent(email, password).then((response) => {
       expect(response.uid).toBe('123');
       done();
@@ -18,13 +18,14 @@ describe('signUp Controller', () => {
   it('Creación de usuario con correo y contraseña NO exitoso', () => {
     const email2 = 'ana1@gmail.com';
     const password2 = 'ana12345';
-    console.log(signupBtnEvent(email2, password2), 'NO Exitoso');
+    // console.log(signupBtnEvent(email2, password2), 'NO Exitoso');
     signupBtnEvent(email2, password2).then((response) => {
-      // expect(response).not.toBe('ERROR USER YA TIENE CUENTA auth/email-already-in-use');
-      console.log(response, 'respuestaaa');
-      return expect(Promise.reject(new Error('ERROR USER YA TIENE CUENTA auth/email-already-in-use'))).rejects.toThrow(
-        'ERROR USER YA TIENE CUENTA auth/email-already-in-use',
-      );
+      expect(response).not.toBe('ERROR USER YA TIENE CUENTA auth/email-already-in-use');
+      // console.log(response, 'respuestaaa');
+      // return expect(Promise.reject(new Error('ERROR USER
+      // YA TIENE CUENTA auth/email-already-in-use'))).rejects.toThrow(
+      //   'ERROR USER YA TIENE CUENTA auth/email-already-in-use',
+      // );
     });
   });
 });

@@ -16,6 +16,7 @@ import {
   query,
   updateDoc,
   arrayUnion,
+  arrayRemove,
 } from '../firebase-init.js';
 
 // funcion observador
@@ -99,6 +100,11 @@ export const updatePublication = (id, inputPostUpdated) => {
 // funcion para agregar like
 export const addLikePost = (id, uidCurrentUser) => {
   updateDoc(doc(eventPublications, id), { likePost: arrayUnion(uidCurrentUser) });
+};
+
+// funcion para quitar like
+export const removeLikePost = (id, uidCurrentUser) => {
+  updateDoc(doc(eventPublications, id), { likePost: arrayRemove(uidCurrentUser) });
 };
 
 // funcion para cerrar sesion

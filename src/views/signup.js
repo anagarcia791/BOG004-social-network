@@ -16,16 +16,15 @@ export const signupLogic = (signupEmail, signupPassword, signupSecondPassword) =
         return isUserCreated;
       })
       .catch((error) => {
-        console.log(error, 'soy error de firebase linea 19 sign');
-        isUserCreated.status = false;
-        isUserCreated.errorCode = error.code;
         const errorMessage = error.message;
         showNotification(errorMessage);
+        isUserCreated.status = false;
+        isUserCreated.errorCode = error.code;
         return isUserCreated;
       });
   }
   showNotification('verificar contraseñas');
-  return Promise.reject();
+  return Promise.reject(isUserCreated);
 };
 
 // se crea template de registro
@@ -64,12 +63,7 @@ export default () => {
     const signupEmail = divElementSignup.querySelector('#email').value;
     const signupPassword = divElementSignup.querySelector('#pass').value;
     const signupSecondPassword = divElementSignup.querySelector('#conf-pass').value;
-    signupLogic(signupEmail, signupPassword, signupSecondPassword)
-      .then((isUserCreated) => {
-        console.log(isUserCreated, 'hola soy isUserCreated desde signup linea 69');
-      }).catch((isUserCreated) => {
-        console.log(isUserCreated, 'hola soy ERROR isUserCreated desde signup linea 71');
-      });
+    signupLogic(signupEmail, signupPassword, signupSecondPassword);
   });
 
   // se agrega evento click a imagen para autenticar usuario con google

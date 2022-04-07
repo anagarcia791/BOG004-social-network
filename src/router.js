@@ -7,7 +7,7 @@ const changeView = (route, component = components) => {
   const sectionHTML = document.querySelector('#routers-container');
   sectionHTML.innerHTML = '';
   let sessionRoute;
-  console.log(window.sessionStorage.getItem('islogged'), 'session storage en router');
+  // console.log(window.sessionStorage.getItem('islogged'), 'session storage en router');
   switch (route) {
     case '':
     case ' ':
