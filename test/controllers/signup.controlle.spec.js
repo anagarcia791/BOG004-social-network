@@ -15,13 +15,16 @@ describe('signUp Controller', () => {
       done();
     });
   });
-  it('Creación de usuario con correo y contraseña NO exitoso', (done) => {
+  it('Creación de usuario con correo y contraseña NO exitoso', () => {
     const email2 = 'ana1@gmail.com';
     const password2 = 'ana12345';
     console.log(signupBtnEvent(email2, password2), 'NO Exitoso');
     signupBtnEvent(email2, password2).then((response) => {
-      expect(response).toBe('ERROR USER YA TIENE CUENTA auth/email-already-in-use');
-      done();
+      // expect(response).not.toBe('ERROR USER YA TIENE CUENTA auth/email-already-in-use');
+      console.log(response, 'respuestaaa');
+      return expect(Promise.reject(new Error('ERROR USER YA TIENE CUENTA auth/email-already-in-use'))).rejects.toThrow(
+        'ERROR USER YA TIENE CUENTA auth/email-already-in-use',
+      );
     });
   });
 });

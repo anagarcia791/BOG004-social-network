@@ -31,6 +31,8 @@ import {
   orderBy,
   query,
   updateDoc,
+  arrayUnion,
+  arrayRemove,
 // eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore.js';
 
@@ -72,6 +74,8 @@ export {
   orderBy,
   query,
   updateDoc,
+  arrayUnion,
+  arrayRemove,
 };
 
 // se declara a google como nuestro proveedor

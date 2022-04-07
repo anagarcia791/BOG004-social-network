@@ -16,12 +16,11 @@ export const createUserWithEmailAndPassword = jest.fn((email, password) => {
     status: false,
     code: 'ERROR USER YA TIENE CUENTA auth/email-already-in-use',
   };
-
   return new Promise((resolve, reject) => {
-    if (email === 'ana1@gmail.com' && password === 'ana123456') {
-      reject(error.code);
-    } else {
+    if (email !== 'ana1@gmail.com' && password !== 'ana123456') { // caso en el que ya existe usuario
       resolve(userCredentials.user);
+    } else {
+      reject(error.code);
     }
   });
 });

@@ -8,6 +8,7 @@ import {
   getPublication,
   readPublications,
   updatePublication,
+  addLikePost,
 } from '../controllers/wall.controller.js';
 import { showNotification } from '../controllers/alerts.controllers.js';
 
@@ -204,7 +205,7 @@ export default () => {
           </section>
           <section class='post-container-events'>
             <button class='post-like' id='${doc.id}'><i class="fa-regular fa-heart"></i></button>
-            <p class='post-user-like'>${post.likePost}</p>
+            <p class='post-user-like'>${post.likePost.length}</p>
             <section class='post-container-btns'>${btnsDeletEdit}</section>
           </section>
         </section>
@@ -268,10 +269,6 @@ export default () => {
       };
       postEdit();
       // FIN funcion para editar post
-      getPublication('NO0EoqTejqwX6TtKQbcO')
-        .then((docLike) => {
-          console.log(docLike.data());
-        });
 
       // funcion para dar like al post
       const postLike = () => {
@@ -282,18 +279,15 @@ export default () => {
             getPublication(buttonliked)
               .then((docLike) => {
                 const justOnePost = docLike.data();
-                console.log(justOnePost, 'soy respuesta de getPublication');
+                console.log(justOnePost);
                 const userlikes = justOnePost.likePost;
                 console.log(userlikes, 'soy likes');
                 if (userlikes.includes(userInfo.uid)) {
-                  console.log(userInfo.uid);
                   console.log('si incluye');
                 } else {
-                  console.log(userInfo.uid);
-                  console.log('no inlcuye');
-                  let likePost = [...userlikes];
-                  likePost = likePost.push(userInfo.uid);
-                  updatePublication(buttonliked, { likePost });
+                  console.log('no incluye');
+                  const uidCurrentUser = userInfo.uid;
+                  addLikePost(buttonliked, uidCurrentUser);
                 }
               }).catch((error) => {
                 showNotification(error);
@@ -303,10 +297,6 @@ export default () => {
       };
       postLike();
       // FIN funcion para dar like al post
-      getPublication('NO0EoqTejqwX6TtKQbcO')
-        .then((docLike) => {
-          console.log(docLike.data());
-        });
     });
     readAllPublications(querySnapshot);
     // FIN funcion para leer todas las publicaciones de manera instantanea
