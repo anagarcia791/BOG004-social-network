@@ -98,7 +98,7 @@ export const updatePublication = (id, inputPostUpdated) => {
 
 // funcion para agregar like
 export const addLikePost = (id, uidCurrentUser) => {
-  updateDoc(doc(eventPublications, id), { ikePost: arrayUnion(uidCurrentUser) });
+  updateDoc(doc(eventPublications, id), { likePost: arrayUnion(uidCurrentUser) });
 };
 
 // funcion para cerrar sesion
