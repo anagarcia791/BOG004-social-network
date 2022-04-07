@@ -268,6 +268,10 @@ export default () => {
       };
       postEdit();
       // FIN funcion para editar post
+      getPublication('NO0EoqTejqwX6TtKQbcO')
+        .then((docLike) => {
+          console.log(docLike.data());
+        });
 
       // funcion para dar like al post
       const postLike = () => {
@@ -299,6 +303,10 @@ export default () => {
       };
       postLike();
       // FIN funcion para dar like al post
+      getPublication('NO0EoqTejqwX6TtKQbcO')
+        .then((docLike) => {
+          console.log(docLike.data());
+        });
     });
     readAllPublications(querySnapshot);
     // FIN funcion para leer todas las publicaciones de manera instantanea
