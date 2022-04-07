@@ -28,7 +28,7 @@ export const publish = (userInfo, divElementWall) => {
       publicationUrlPhoto = divElementWall.querySelector('.userpic-url').src;
     }
 
-    const userLikes = ['id1'];
+    const userLikes = [];
 
     createPublication(
       publicationContent.value,
@@ -204,7 +204,7 @@ export default () => {
           </section>
           <section class='post-container-events'>
             <button class='post-like' id='${doc.id}'><i class="fa-regular fa-heart"></i></button>
-            <p class='post-user-like'>${post.likePost.length}</p>
+            <p class='post-user-like'>${post.likePost}</p>
             <section class='post-container-btns'>${btnsDeletEdit}</section>
           </section>
         </section>
@@ -217,7 +217,6 @@ export default () => {
         const deleteButton = divElementWall.querySelectorAll('.post-btn-delete-publication');
         deleteButton.forEach((btnDelete) => {
           btnDelete.addEventListener('click', ({ target: { dataset } }) => {
-            console.log(dataset.publicationid, 'soy id para eliminar post');
             deletePublication(dataset.publicationid);
           });
         });
@@ -232,11 +231,11 @@ export default () => {
         const saveButton = divElementWall.querySelectorAll('.post-btn-save-publication');
         editButton.forEach((btnEdit, index) => {
           btnEdit.addEventListener('click', (e) => {
-            const buttonClicked = e.target.dataset.publicationid;
-            getPublication(buttonClicked)
+            const buttonEditClicked = e.target.dataset.publicationid;
+            getPublication(buttonEditClicked)
               .then(() => {
                 editTextContent.forEach((textArea) => {
-                  if (textArea.id === buttonClicked) {
+                  if (textArea.id === buttonEditClicked) {
                     textArea.removeAttribute('readonly');
                     btnEdit.classList.add('hidenBtn');
                     saveButton[index].classList.remove('hidenBtn');
@@ -282,6 +281,16 @@ export default () => {
                 console.log(justOnePost, 'soy respuesta de getPublication');
                 const userlikes = justOnePost.likePost;
                 console.log(userlikes, 'soy likes');
+                if (userlikes.includes(userInfo.uid)) {
+                  console.log(userInfo.uid);
+                  console.log('si incluye');
+                } else {
+                  console.log(userInfo.uid);
+                  console.log('no inlcuye');
+                  let likePost = [...userlikes];
+                  likePost = likePost.push(userInfo.uid);
+                  updatePublication(buttonliked, { likePost });
+                }
               }).catch((error) => {
                 showNotification(error);
               });
