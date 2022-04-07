@@ -46,13 +46,21 @@ export const currentUser = () => {
 const eventPublications = collection(db, 'publications');
 
 // funcion para crear publicación
-export const createPublication = (inputPost, generePost, uidPost, userNamePost, photoUrlPost) => {
+export const createPublication = (
+  inputPost,
+  generePost,
+  uidPost,
+  userNamePost,
+  photoUrlPost,
+  likePost,
+) => {
   addDoc(eventPublications, {
     inputPost,
     generePost,
     uidPost,
     userNamePost,
     photoUrlPost,
+    likePost,
     postCreatedAt: serverTimestamp(),
   });
 };
@@ -77,14 +85,14 @@ export const deletePublication = (id) => {
 
 // funcion para acceder a una publicación
 export const getPublication = (id) => {
-  const docRef = doc(db, 'publications', id);
+  const docRef = doc(eventPublications, id);
   const docSnap = getDoc(docRef);
   return docSnap;
 };
 
 // funcion para actualizar una publicación
 export const updatePublication = (id, inputPostUpdated) => {
-  updateDoc(doc(db, 'publications', id), inputPostUpdated);
+  updateDoc(doc(eventPublications, id), inputPostUpdated);
 };
 
 // funcion para cerrar sesion
