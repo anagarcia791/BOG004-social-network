@@ -18,23 +18,78 @@
     width: 25vw;
     font-size: 2.5rem;
 }
-.slider{
-    display: flex;
-    width: 100%;
-    height: 90px;
-    margin-right: -10%;
+.wall-posts-container{
+    font-size: 2em;
 }
-.slider-btn--left{
-    left: 10px;
+.container-slider{
+    min-height: 30%;
+    padding: 1em;
 }
-.slider-btn--right{
-    right: 10px;
+.container-slider .slider-btn{
+    font-size: 5em;
+}
+.post-container{
+    font-size: 1em;
+}
+.post-container-user{
+    width: 15%;
 }
 
+.post-container-user img{
+    width: 80px;
+}
+.post-content{
+    font-size: 2em;
+}
+.fa-heart{
+    font-size: 2.5em;
+}
 /* FIN estilos para seccion muro */
+
+/* Inicio estilos Modal */
+.modal-container{
+    min-width: 800px;
+}
+.modal-container-header h2{
+    font-size: 2rem;
+}
+.modal-container-user-icon img{
+    width: 80px;
+}
+
+.modal-container-category i{
+    font-size: 2.5rem;
+}
+.modal-user-name{
+    font-size: 2rem;
+    padding: 10px;
+}
+.modal-container-category{
+    font-size: 2em;
+}
+.inp-post-modal-post{
+    font-size: 1.2em;
+}
+
+.inp-post-modal-post::placeholder{
+    font-size: 1.5em;
+}
+
+textarea {
+    resize: none;
+    font-size: 2em;
+}
+.modal-btn-post-inactive{
+    font-size: 2rem;
+
+}
 .modal-container{
     max-width: 600px;
 }
 .modal-container-user{
     width: 25%;
+}
+.post-btn-edit-publication, .post-btn-save-publication, .post-btn-delete-publication{
+    padding: .3em 1em;
+    font-size: 1em;
 }

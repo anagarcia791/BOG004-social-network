@@ -64,8 +64,10 @@ export default () => {
     <section class='wall-categories container-slider'>
         <h2 class='wall-categ-title'>Publicar</h2>
         <section class='wall-categ-container slider' id='wall-categ-container'></section>
-        <div><i class="fa-solid fa-caret-left slider-btn slider-btn--left"></i></div>
-        <div><i class="fa-solid fa-caret-right slider-btn slider-btn--right"></i></div>
+        <section class='wall-categ-container-slider-btn'>
+          <div><i class="fa-solid fa-caret-left slider-btn active slider-btn--left"></i></div>
+          <div><i class="fa-solid fa-caret-right slider-btn slider-btn--right"></i></div>
+        </section>
     </section>
     <main class='wall-posts'>
         <form class='modal' id='modal-form'>
@@ -132,6 +134,25 @@ export default () => {
   };
   createCategoriesStructure(musicCategories.type);
 
+  // funcion para slider categorías
+  const sliderBtn = divElementWall.querySelectorAll('.slider-btn');
+  const slider = divElementWall.querySelector('.slider');
+  sliderBtn.forEach((arrow, i) => {
+    sliderBtn[i].addEventListener('click', () => {
+      const position = i;
+      const positionChange = position * -50;
+      console.log(positionChange);
+
+      slider.style.transform = `translateX(${positionChange}%)`;
+
+      sliderBtn.forEach((arrowbtn, index) => {
+        sliderBtn[index].classList.remove('active');
+      });
+      sliderBtn[i].classList.add('active');
+    });
+  });
+  // Fin funcion para slider
+
   // funcion para abrir modal de publicacion
   const openModal = (userInfo) => {
     const categories = divElementWall.querySelectorAll('.wall-categ-button');
@@ -188,6 +209,7 @@ export default () => {
         } else {
           btnsDeletEdit = '';
         }
+        const heartIcon = post.likePost.includes(userInfo.uid) ? 'fa-solid' : 'fa-regular';
         postStructure += `
         <section class='post' id='${doc.id}'>
           <section class='post-container'>
@@ -203,8 +225,10 @@ export default () => {
             <textarea type='text' class='post-content inp-post-modal-post' readonly id='${doc.id}'>${post.inputPost}</textarea>
           </section>
           <section class='post-container-events'>
-            <button class='post-like' id='${doc.id}'><i class="fa-regular fa-heart"></i></button>
+          <section class='post-container-likes'>
+            <button class='post-like' id='${doc.id}'><i class="${heartIcon} fa-heart" id='${doc.id}'></i></button>
             <p class='post-user-like'>${post.likePost.length}</p>
+          </section>
             <section class='post-container-btns'>${btnsDeletEdit}</section>
           </section>
         </section>

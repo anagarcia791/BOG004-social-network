@@ -169,9 +169,7 @@ p.log-sig-line span{
 /* INICIO estilos para seccion muro */
 .wall{
     width: 100vw;
-    /* min-width: 300px; */
     height: 100vh;
-    /* min-height: 600px; */
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -198,6 +196,7 @@ p.log-sig-line span{
     align-items: center;
     font-size: 1.8rem;
     margin-top: 0px;
+    color: var(--btnAll);
 }
 .wall-nav-pic img{
     border-radius: 50%;
@@ -210,10 +209,13 @@ p.log-sig-line span{
     width: 100%;
 }
 .container-slider{
+    width: 100%;
+    min-height: 25%;
+    max-width: 120em;
+    padding: 0.8em;
     overflow: hidden;
-    border-radius: 5px;
-    position: relative;
 }
+
 
 .wall-categories h2{
     text-align: center;
@@ -227,31 +229,37 @@ p.log-sig-line span{
     color: var(--textwhite);
     margin: 0px 7px;
 }
-.slider{
+.container-slider .slider{
+    width: 200%;
     display: flex;
-    gap: 20px;
-    margin-right: -10%;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+
+    transition:  all 1.5s ease;
+    transform: translateX(0%);
 }
-.slider-section{
+.container-slider .slider-section{
+    width: calc(100% / 2 -2em);
+    min-height: 6vh;
+}
+.container-slider  .wall-categ-container-slider-btn{
     width: 100%;
+    padding: .4em;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
 }
-.slider-btn{
-    position: absolute;
-    width: 25px;
-    height: 25px;
-    color: var(--btnAll);
-    top: 65%;
-    transform: translateY(-50%);
-    font-size: 50px;
-    text-align: center;
-    cursor: pointer;
+.container-slider .slider-btn{
+    margin: 1em 1em 0;
+    font-size: 1.5em;
+    color: var(--btnblue2);
 }
-.slider-btn--left{
-    left: 5px;
+.container-slider .slider-btn.active{
+    color: var(--btnpurple4);
 }
-.slider-btn--right{
-    right: 5px;
-}
+
 #Rock0{
     background-color: var(--btnfuccia2);
 }
@@ -354,8 +362,11 @@ p.log-sig-line span{
 .inp-post-modal-post:active{
     outline: none;
 }
-textarea {
+textarea{
     resize: none;
+}
+.post-content{
+    font-size: 1em;
 }
 .modal-btn-post-inactive{
     border: none;
@@ -383,19 +394,29 @@ textarea {
 }
 .post-container{
     border: 1px solid var(--btnblue3);
+    padding: 0.5rem;
+    border-radius: 0.8rem;
+    margin: 10px 0;
 }
 .post-container-header{
     display: flex;  
     justify-content: space-between;
 }
 .post-container-user{
-    width: 60%;
+    width: 30%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .post-container-user img{
     border-radius: 50%;
     width: 30px;
+}
+.post-container-likes{
+    width: 3%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 .post-container-events{
     display: flex;    
@@ -403,6 +424,30 @@ textarea {
 }
 .hidenBtn{
     display: none;
+}
+.post-like{
+    border: none;
+    background-color: var(--textwhite);
+}
+.post-like i{
+    color: var(--btnfuccia2);
+    
+
+}
+.post-btn-edit-publication, .post-btn-save-publication{
+    border: none;
+    padding: 0.3rem 0.5rem;
+    background-color: var(--btnblue2);
+    color: white;
+    border-radius: 10px;
+}
+.post-btn-delete-publication{
+    border: none;
+    border: none;
+    padding: 0.3rem 0.5rem;
+    background-color: var(--btnpurple4);
+    color: white;
+    border-radius: 10px;
 }
 /* FIN Estilos Post */
 
