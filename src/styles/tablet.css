@@ -1,4 +1,7 @@
 /* INICIO estilos para secciones registro y login */
+body{
+    font-size: 1em;
+}
 .log-sig{
     max-width: 300px;
     max-height: 600px;
@@ -22,27 +25,33 @@
     font-size: 2em;
 }
 .container-slider{
-    min-height: 30%;
-    padding: 1em;
+    min-height: 48%;
+    /* padding: 1em; */
 }
 .container-slider .slider-btn{
-    font-size: 5em;
+    font-size: 3.5em;
 }
 .post-container{
-    font-size: 1em;
+    font-size: .8em;
 }
 .post-container-user{
-    width: 15%;
+    width: 8%;
+    display: flex;
+}
+.post-container-user img{
+    width: 50px;
+    margin-right: 15px;
+}
+.post-container-events{
+    width: 95%;
+    margin: 0 auto;
+}
+.post-user-like{
+    font-size: .8em;
 }
 
-.post-container-user img{
-    width: 80px;
-}
-.post-content{
-    font-size: 2em;
-}
 .fa-heart{
-    font-size: 2.5em;
+    font-size: 2em;
 }
 /* FIN estilos para seccion muro */
 
@@ -51,18 +60,20 @@
     min-width: 800px;
 }
 .modal-container-header h2{
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 .modal-container-user-icon img{
-    width: 80px;
+    width: 60px;
+}
+.wall-nav-pic .fa-user{
+    font-size: 1em;
 }
 
 .modal-container-category i{
-    font-size: 2.5rem;
+    font-size: 2rem;
 }
 .modal-user-name{
-    font-size: 2rem;
-    padding: 10px;
+    font-size: 1.5rem;
 }
 .modal-container-category{
     font-size: 2em;
@@ -77,19 +88,21 @@
 
 textarea {
     resize: none;
-    font-size: 2em;
 }
 .modal-btn-post-inactive{
-    font-size: 2rem;
+    font-size: 1.5rem;
 
 }
 .modal-container{
     max-width: 600px;
 }
+.modal-container-user-icon i{
+    font-size: 2.5em;
+}
 .modal-container-user{
-    width: 25%;
+    width: 15%;
 }
 .post-btn-edit-publication, .post-btn-save-publication, .post-btn-delete-publication{
-    padding: .3em 1em;
-    font-size: 1em;
+    padding: .2em .8em;
+    font-size: .6em;
 }
