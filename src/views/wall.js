@@ -141,10 +141,7 @@ export default () => {
     sliderBtn[i].addEventListener('click', () => {
       const position = i;
       const positionChange = position * -50;
-      console.log(positionChange);
-
       slider.style.transform = `translateX(${positionChange}%)`;
-
       sliderBtn.forEach((arrowbtn, index) => {
         sliderBtn[index].classList.remove('active');
       });
