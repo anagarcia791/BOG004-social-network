@@ -135,19 +135,22 @@ export default () => {
   createCategoriesStructure(musicCategories.type);
 
   // funcion para slider categorías
-  const sliderBtn = divElementWall.querySelectorAll('.slider-btn');
-  const slider = divElementWall.querySelector('.slider');
-  sliderBtn.forEach((arrow, i) => {
-    sliderBtn[i].addEventListener('click', () => {
-      const position = i;
-      const positionChange = position * -50;
-      slider.style.transform = `translateX(${positionChange}%)`;
-      sliderBtn.forEach((arrowbtn, index) => {
-        sliderBtn[index].classList.remove('active');
+  const sliderControl = () => {
+    const sliderBtn = divElementWall.querySelectorAll('.slider-btn');
+    const slider = divElementWall.querySelector('.slider');
+    sliderBtn.forEach((arrow, i) => {
+      sliderBtn[i].addEventListener('click', () => {
+        const position = i;
+        const positionChange = position * -50;
+        slider.style.transform = `translateX(${positionChange}%)`;
+        sliderBtn.forEach((arrowbtn, index) => {
+          sliderBtn[index].classList.remove('active');
+        });
+        sliderBtn[i].classList.add('active');
       });
-      sliderBtn[i].classList.add('active');
     });
-  });
+  };
+  sliderControl();
   // Fin funcion para slider
 
   // funcion para abrir modal de publicacion
