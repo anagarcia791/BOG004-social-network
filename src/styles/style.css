@@ -215,8 +215,6 @@ p.log-sig-line span{
     padding: 0.8em;
     overflow: hidden;
 }
-
-
 .wall-categories h2{
     text-align: center;
     padding: 10px;
@@ -235,7 +233,6 @@ p.log-sig-line span{
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
-
     transition:  all 1.5s ease;
     transform: translateX(0%);
 }
@@ -259,7 +256,6 @@ p.log-sig-line span{
 .container-slider .slider-btn.active{
     color: var(--btnpurple4);
 }
-
 #Rock0{
     background-color: var(--btnfuccia2);
 }
@@ -390,7 +386,6 @@ textarea{
 }
 .post {
     width: 90%;
-    /* padding: 20px; */
 }
 .post-container{
     border: 1px solid var(--btnblue3);
@@ -433,8 +428,6 @@ textarea{
 }
 .post-like i{
     color: var(--btnfuccia2);
-    
-
 }
 .post-btn-edit-publication, .post-btn-save-publication{
     border: none;
@@ -444,7 +437,6 @@ textarea{
     border-radius: 10px;
 }
 .post-btn-delete-publication{
-    border: none;
     border: none;
     padding: 0.3rem 0.5rem;
     background-color: var(--btnpurple4);

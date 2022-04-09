@@ -56,9 +56,6 @@ body{
 /* FIN estilos para seccion muro */
 
 /* Inicio estilos Modal */
-.modal-container{
-    min-width: 800px;
-}
 .modal-container-header h2{
     font-size: 1.5rem;
 }
