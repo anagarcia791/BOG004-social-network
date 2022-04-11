@@ -324,19 +324,23 @@ export default () => {
   postsManagement(wallControllerUserInfo);
   // FIN funcion para manejar publicaciones
 
-  // se agrega evento click a boton de cerrar sesión
-  const signoutBtn = divElementWall.querySelector('#signout');
-  signoutBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    signOutUser()
-      .then(() => {
-        window.sessionStorage.setItem('islogged', 'false');
-        window.location.hash = '#/';
-      })
-      .catch((error) => {
-        showNotification(error);
-      });
-  });
+  // funcion para cerrar sesión
+  const signOutWall = () => {
+    const signoutBtn = divElementWall.querySelector('#signout');
+    signoutBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      signOutUser()
+        .then(() => {
+          window.sessionStorage.setItem('islogged', 'false');
+          window.location.hash = '#/';
+        })
+        .catch((error) => {
+          showNotification(error);
+        });
+    });
+  };
+  signOutWall();
+  // Fin funcion para cerrar sesión
 
   return divElementWall;
 };
