@@ -6,7 +6,7 @@
 * [2. Consideraciones generales](#2-Consideraciones-generales)
 * [3. Prototipos de BeMusic](#3-Prototipos-de-BeMusic)
 * [4. Historias de Usuario](#4-Historias-de-usuario)
-* [5. Responsive](#4-Responsive)
+* [5. Responsive](#5-Responsive)
 
 
 ## 1. Resumen del proyecto
