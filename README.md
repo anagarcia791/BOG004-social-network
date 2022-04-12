@@ -4,7 +4,7 @@
 
 * [1. Resumen del proyecto](#1-Resumen-del-proyecto)
 * [2. Consideraciones generales](#2-Consideraciones-generales)
-* [3. Prototipos de BeMusic](#3-Prototipos-de-BeMusic)
+* [3. Prototipos de BeMusic](#3-Prototipos-de-BeMusic-de-alta-fidelidad)
 * [4. Historias de Usuario](#4-Historias-de-usuario)
 * [5. Responsive](#5-Responsive)
 
