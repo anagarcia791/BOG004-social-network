@@ -1,7 +1,7 @@
-/* INICIO estilos para secciones registro y login */
 body{
     font-size: 1em;
 }
+/* INICIO estilos para secciones registro y login */
 .log-sig{
     max-width: 300px;
     max-height: 600px;
@@ -10,6 +10,7 @@ body{
     gap: 35px;
 }
 /* FIN estilos para secciones registro y login */
+
 /* INICIO estilos para seccion muro */
 .wall-nav{
     padding: 5px 20px 5px 20px;
@@ -21,12 +22,11 @@ body{
     width: 25vw;
     font-size: 2.5rem;
 }
-.wall-posts-container{
-    font-size: 2em;
-}
+/* FIN estilos para seccion muro */
+
+/* INICIO estilos para seccion muro */
 .container-slider{
     min-height: 48%;
-    /* padding: 1em; */
 }
 .container-slider .slider-btn{
     font-size: 3.5em;
@@ -49,7 +49,6 @@ body{
 .post-user-like{
     font-size: .8em;
 }
-
 .fa-heart{
     font-size: 2em;
 }
@@ -65,7 +64,6 @@ body{
 .wall-nav-pic .fa-user{
     font-size: 1em;
 }
-
 .modal-container-category i{
     font-size: 2rem;
 }
@@ -78,11 +76,9 @@ body{
 .inp-post-modal-post{
     font-size: 1.2em;
 }
-
 .inp-post-modal-post::placeholder{
     font-size: 1.5em;
 }
-
 textarea {
     resize: none;
 }
@@ -99,7 +95,14 @@ textarea {
 .modal-container-user{
     width: 15%;
 }
+/* FIN ventana Modal */
+
+/* INICIO Estilos Post */
+.wall-posts-container{
+    font-size: 2em;
+}
 .post-btn-edit-publication, .post-btn-save-publication, .post-btn-delete-publication{
     padding: .2em .8em;
     font-size: .6em;
 }
+/* FIN Estilos Post */

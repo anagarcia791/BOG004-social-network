@@ -15,9 +15,9 @@ describe('signupLogic', () => {
     const passConf = 'password2';
     const notification = document.querySelector('.notification');
     signupLogic(email, pass, passConf).then((result) => {
+      done();
       console.log(notification, 'aaaaaaaa');
       expect(result.status).toBe(false);
-      done();
     });
 
     // PRIMER PRUEBA DE TEST

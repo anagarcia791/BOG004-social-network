@@ -1,3 +1,4 @@
+/* INICIO estilos para seccion muro */
 .wall-nav-container {
     width: 10vw;
 }
@@ -22,3 +23,4 @@
     display: flex;
     justify-content: space-between;
 }
+/* FIN estilos para seccion muro */
